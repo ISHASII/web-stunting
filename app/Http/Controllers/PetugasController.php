@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Child;
 use App\Models\Measurement;
 use App\Services\ZScoreService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log; // Import Log Facade
 
 class PetugasController extends Controller
 {
@@ -19,8 +21,10 @@ class PetugasController extends Controller
 
     public function dashboard()
     {
-        $myMeasurements = Measurement::where('user_id', auth()->id())->count();
-        $todayMeasurements = Measurement::where('user_id', auth()->id())
+        $userId = Auth::id();
+
+        $myMeasurements = Measurement::where('user_id', $userId)->count();
+        $todayMeasurements = Measurement::where('user_id', $userId)
             ->whereDate('measurement_date', today())->count();
 
         return view('petugas.dashboard', compact('myMeasurements', 'todayMeasurements'));
@@ -28,11 +32,14 @@ class PetugasController extends Controller
 
     public function createMeasurement()
     {
+        Log::info('Form pengukuran dibuka');
         return view('petugas.measurement.create');
     }
 
     public function storeMeasurement(Request $request)
     {
+        Log::info('Masuk ke storeMeasurement', $request->all());
+
         $request->validate([
             'nik' => 'required|string|max:16',
             'name' => 'required|string|max:255',
@@ -42,11 +49,17 @@ class PetugasController extends Controller
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        // === PERBAIKAN 1: Normalisasi Input & Perhitungan Usia ===
+        // Memastikan usia dihitung sebagai integer (pembulatan ke bawah)
         $birthDate = Carbon::parse($request->birth_date);
-        $ageMonths = $birthDate->diffInMonths(Carbon::now());
+        $ageMonths = (int) $birthDate->diffInMonths(Carbon::now());
+
+        // Memastikan gender dalam format yang benar (meski sudah ada validasi)
+        $gender = strtoupper(trim($request->gender));
+        $height = $request->height;
 
         if ($ageMonths > 60) {
-            return back()->withErrors(['birth_date' => 'Anak harus berusia 0-60 bulan']);
+            return back()->withErrors(['birth_date' => 'Anak harus berusia 0-60 bulan'])->withInput();
         }
 
         $photoPath = null;
@@ -58,36 +71,53 @@ class PetugasController extends Controller
             ['nik' => $request->nik],
             [
                 'name' => $request->name,
-                'gender' => $request->gender,
+                'gender' => $gender, // Menggunakan variabel gender yang sudah bersih
                 'birth_date' => $request->birth_date,
-                'photo' => $photoPath,
+                // Hanya update foto jika ada foto baru
+                'photo' => $photoPath ?? Child::where('nik', $request->nik)->first()?->photo,
             ]
         );
 
         try {
-            $zScore = $this->zScoreService->calculateZScore($ageMonths, $request->gender, $request->height);
+            // === PERBAIKAN 2 (UTAMA): Panggil service dengan data yang benar ===
+            // Hapus konversi ke 'male'/'female'. Langsung gunakan 'L'/'P'.
+            $zScore = $this->zScoreService->calculateZScore($ageMonths, $gender, $height);
             $status = $this->zScoreService->getStatus($zScore);
 
-            Measurement::create([
+            $userId = Auth::id();
+
+            if (!$userId) {
+                Log::error('User ID tidak ditemukan saat menyimpan pengukuran.');
+                return back()->withErrors(['error' => 'Pengguna belum login. Silakan login ulang.'])->withInput();
+            }
+
+            $measurement = Measurement::create([
                 'child_id' => $child->id,
-                'user_id' => auth()->id(),
+                'user_id' => $userId,
                 'age_months' => $ageMonths,
-                'height' => $request->height,
+                'height' => $height,
                 'z_score' => $zScore,
                 'status' => $status,
                 'measurement_date' => now(),
             ]);
 
-            return redirect()->route('petugas.measurement.history')->with('success', 'Pengukuran berhasil disimpan');
+            Log::info('Pengukuran berhasil disimpan', $measurement->toArray());
+
+            return redirect()->route('petugas.measurement.history')->with('success', 'Pengukuran berhasil disimpan.');
+
         } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+            Log::error('Gagal menghitung Z-Score atau menyimpan pengukuran:', ['message' => $e->getMessage()]);
+            // Mengembalikan input agar user tidak perlu mengisi ulang form
+            return back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
     }
 
     public function measurementHistory()
     {
+        $userId = Auth::id();
+
         $measurements = Measurement::with('child')
-            ->where('user_id', auth()->id())
+            ->where('user_id', $userId)
             ->orderBy('measurement_date', 'desc')
             ->paginate(15);
 

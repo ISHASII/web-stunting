@@ -16,14 +16,11 @@ class Measurement extends Model
         'measurement_date',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'measurement_date' => 'date',
-            'height' => 'decimal:2',
-            'z_score' => 'decimal:2',
-        ];
-    }
+    protected $casts = [
+        'measurement_date' => 'date',
+        'height' => 'decimal:2',
+        'z_score' => 'decimal:2',
+    ];
 
     public function child()
     {

@@ -40,8 +40,7 @@
                         <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Logout</button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="hover:text-blue-200">Login</a>
-                    <a href="{{ route('register') }}" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100">Register</a>
+                    <a href="{{ route('login') }}" class="block py-2 px-4 mt-2 bg-white text-blue-500 rounded-lg font-semibold text-center hover:bg-green-50">Login</a>
                 @endauth
             </nav>
 
@@ -62,8 +61,7 @@
             <a href="#gallery" class="block py-2 text-white">Galeri</a>
             <a href="#contact" class="block py-2 text-white">Kontak</a>
             @guest
-                <a href="{{ route('login') }}" class="block py-2 text-white">Login</a>
-                <a href="{{ route('register') }}" class="block py-2 text-white">Register</a>
+                <a href="{{ route('login') }}" class="block py-2 px-4 mt-2 bg-white text-green-600 rounded-lg font-semibold text-center hover:bg-green-50">Login</a>
             @endguest
         </div>
     </header>

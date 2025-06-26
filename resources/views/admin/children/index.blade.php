@@ -32,11 +32,18 @@
         <h3 class="text-lg font-medium text-gray-900">
             Daftar Anak ({{ $children->total() }} total)
         </h3>
-        <a href="{{ route('admin.export') }}"
-           class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">
-            Export Data
-        </a>
     </div>
+
+    <div class="flex space-x-2">
+    <a href="{{ route('admin.export', ['format' => 'excel']) }}"
+       class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">
+        Export Excel
+    </a>
+    <a href="{{ route('admin.export', ['format' => 'pdf']) }}"
+       class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300">
+        Export PDF
+    </a>
+</div>
 
     @if($children->count() > 0)
         <div class="overflow-x-auto">

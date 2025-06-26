@@ -10,6 +10,8 @@ use App\Models\Puskesmas;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ChildrenExport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -148,14 +150,18 @@ class AdminController extends Controller
         return redirect()->route('admin.puskesmas')->with('success', 'Profil Puskesmas berhasil diupdate');
     }
 
-    public function export()
-    {
-        $filename = 'children_data.xlsx';
+    public function export(Request $request)
+{
+    $children = Child::with(['measurements' => function ($q) {
+        $q->latest('measurement_date');
+    }])->get();
 
-        // Simpan file dulu ke storage
-        Excel::store(new ChildrenExport, 'exports/' . $filename);
-
-        // Baru kemudian di-download
-        return response()->download(storage_path('app/exports/' . $filename));
+    if ($request->format === 'pdf') {
+        $pdf = Pdf::loadView('admin.exports.children_pdf', compact('children'));
+        return $pdf->download('children_data.pdf');
     }
+
+    // Default: Excel
+    return Excel::download(new ChildrenExport, 'children_data.xlsx');
+}
 }

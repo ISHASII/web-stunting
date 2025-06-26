@@ -20,7 +20,7 @@ class StuntingController extends Controller
 
     public function showForm()
     {
-        return view('public.check-form');
+        return view('stunting.form');
     }
 
     public function check(Request $request)

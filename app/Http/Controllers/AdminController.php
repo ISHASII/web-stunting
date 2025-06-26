@@ -8,6 +8,8 @@ use App\Models\Measurement;
 use App\Models\User;
 use App\Models\Puskesmas;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ChildrenExport;
 
 class AdminController extends Controller
 {
@@ -148,7 +150,12 @@ class AdminController extends Controller
 
     public function export()
     {
-        // Implementation for export functionality
-        return response()->download(storage_path('app/exports/children_data.xlsx'));
+        $filename = 'children_data.xlsx';
+
+        // Simpan file dulu ke storage
+        Excel::store(new ChildrenExport, 'exports/' . $filename);
+
+        // Baru kemudian di-download
+        return response()->download(storage_path('app/exports/' . $filename));
     }
 }

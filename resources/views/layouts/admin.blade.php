@@ -11,7 +11,6 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     <a href="{{ route('home') }}" class="hover:text-blue-200">Beranda</a>
-                    <a href="{{ route('stunting.form') }}" class="hover:text-blue-200">Cek Stunting</a>
                     @auth
                         @if(auth()->user()->isSuperadmin())
                             <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-200">Dashboard Admin</a>

@@ -24,7 +24,6 @@
 
             <nav class="hidden md:flex gap-6 items-center">
                 <a href="{{ route('home') }}" class="hover:text-blue-200">Beranda</a>
-                <a href="{{ route('stunting.form') }}" class="hover:text-blue-200">Deteksi</a>
                 <a href="#about" class="hover:text-blue-200">Tentang</a>
                 <a href="#gallery" class="hover:text-blue-200">Galeri</a>
                 <a href="#contact" class="hover:text-blue-200">Kontak</a>
@@ -82,7 +81,6 @@
                 <h4 class="font-semibold text-lg mb-2">Navigasi</h4>
                 <ul class="text-gray-300 space-y-1">
                     <li><a href="{{ route('home') }}" class="hover:text-white">Beranda</a></li>
-                    <li><a href="{{ route('stunting.form') }}" class="hover:text-white">Deteksi Stunting</a></li>
                     <li><a href="#about" class="hover:text-white">Tentang</a></li>
                     <li><a href="#gallery" class="hover:text-white">Galeri</a></li>
                 </ul>

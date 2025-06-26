@@ -27,15 +27,6 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-6">
-                    <a href="{{ route('stunting.form') }}"
-                       class="group bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-gray-900 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 text-center shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105">
-                        <span class="flex items-center justify-center">
-                            Mulai Deteksi Stunting
-                            <svg class="ml-3 w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                            </svg>
-                        </span>
-                    </a>
                     <a href="#about"
                        class="group border-2 border-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 text-center hover:shadow-xl transform hover:-translate-y-1">
                         Pelajari Lebih Lanjut
@@ -358,23 +349,10 @@
 
     <div class="relative max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
         <div class="space-y-8">
-            <h2 class="text-5xl lg:text-7xl font-black text-gray-900 leading-tight">
-                Mulai Deteksi Stunting
-                <span class="block text-gray-800">Sekarang</span>
-            </h2>
             <p class="text-xl lg:text-2xl text-gray-800 max-w-3xl mx-auto leading-relaxed">
                 Deteksi dini stunting untuk masa depan anak yang lebih cerah.
                 Gratis, mudah digunakan, dan terpercaya.
             </p>
-            <div class="pt-4">
-                <a href="{{ route('stunting.form') }}"
-                   class="group inline-flex items-center bg-gray-900 hover:bg-gray-800 text-white px-12 py-6 rounded-2xl font-bold text-xl transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 hover:scale-105">
-                    Mulai Deteksi Sekarang
-                    <svg class="ml-4 w-6 h-6 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                    </svg>
-                </a>
-            </div>
         </div>
     </div>
 </section>

@@ -30,6 +30,7 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/children/{child}', [AdminController::class, 'showChild'])->name('admin.children.show');
     Route::get('/measurements', [AdminController::class, 'measurements'])->name('admin.measurements');
     Route::get('/export', [AdminController::class, 'export'])->name('admin.export');
+    Route::get('/admin/children/export', [AdminController::class, 'exportChildren'])->name('admin.children.export');
 
     // Gallery Management
     Route::resource('gallery', GalleryController::class, ['as' => 'admin']);

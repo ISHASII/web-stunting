@@ -46,42 +46,6 @@
     </div>
 </section>
 
-<!-- Stats Section -->
-<section class="py-20 bg-gradient-to-b from-gray-50 to-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="group text-center p-8 rounded-3xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
-                <div class="relative">
-                    <div class="text-5xl font-black text-blue-600 mb-4 group-hover:scale-110 transition-transform duration-300">1000+</div>
-                    <div class="w-16 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mb-4 rounded-full"></div>
-                    <div class="text-gray-600 font-semibold text-lg">Anak Terdeteksi</div>
-                </div>
-            </div>
-            <div class="group text-center p-8 rounded-3xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
-                <div class="relative">
-                    <div class="text-5xl font-black text-green-600 mb-4 group-hover:scale-110 transition-transform duration-300">95%</div>
-                    <div class="w-16 h-1 bg-gradient-to-r from-green-400 to-green-600 mx-auto mb-4 rounded-full"></div>
-                    <div class="text-gray-600 font-semibold text-lg">Akurasi Deteksi</div>
-                </div>
-            </div>
-            <div class="group text-center p-8 rounded-3xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
-                <div class="relative">
-                    <div class="text-5xl font-black text-yellow-600 mb-4 group-hover:scale-110 transition-transform duration-300">50+</div>
-                    <div class="w-16 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mb-4 rounded-full"></div>
-                    <div class="text-gray-600 font-semibold text-lg">Posyandu Terhubung</div>
-                </div>
-            </div>
-            <div class="group text-center p-8 rounded-3xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
-                <div class="relative">
-                    <div class="text-5xl font-black text-red-600 mb-4 group-hover:scale-110 transition-transform duration-300">24/7</div>
-                    <div class="w-16 h-1 bg-gradient-to-r from-red-400 to-red-600 mx-auto mb-4 rounded-full"></div>
-                    <div class="text-gray-600 font-semibold text-lg">Layanan Online</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- About Stunting Section -->
 <section id="about" class="py-24 bg-gradient-to-br from-gray-50 via-blue-50/50 to-indigo-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -259,82 +223,6 @@
                 </div>
             </div>
             @endforeach
-        </div>
-    </div>
-</section>
-@endif
-
-@if($puskesmas)
-<!-- Contact Section -->
-<section id="contact" class="py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white relative overflow-hidden">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-    </div>
-
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20">
-            <div class="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm text-white font-semibold mb-6">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path>
-                </svg>
-                Kontak
-            </div>
-            <h2 class="text-5xl lg:text-6xl font-black mb-8 leading-tight">Hubungi Kami</h2>
-            <p class="text-2xl text-blue-100 font-semibold">
-                {{ $puskesmas->name }}
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div class="space-y-8">
-                <h3 class="text-3xl font-bold mb-10">Informasi Kontak</h3>
-                <div class="space-y-8">
-                    <div class="group flex items-start p-6 bg-white/10 backdrop-blur-sm rounded-2xl hover:bg-white/20 transition-all duration-300">
-                        <div class="flex-shrink-0 w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-6 h-6 text-gray-900" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold mb-2">Alamat</h4>
-                            <p class="text-blue-100 leading-relaxed">{{ $puskesmas->address }}</p>
-                        </div>
-                    </div>
-
-                    <div class="group flex items-start p-6 bg-white/10 backdrop-blur-sm rounded-2xl hover:bg-white/20 transition-all duration-300">
-                        <div class="flex-shrink-0 w-12 h-12 bg-green-400 rounded-xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-6 h-6 text-gray-900" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold mb-2">Telepon</h4>
-                            <p class="text-blue-100 leading-relaxed">{{ $puskesmas->phone }}</p>
-                        </div>
-                    </div>
-
-                    <div class="group flex items-start p-6 bg-white/10 backdrop-blur-sm rounded-2xl hover:bg-white/20 transition-all duration-300">
-                        <div class="flex-shrink-0 w-12 h-12 bg-blue-400 rounded-xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-6 h-6 text-gray-900" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold mb-2">Email</h4>
-                            <p class="text-blue-100 leading-relaxed">{{ $puskesmas->email }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <h3 class="text-3xl font-bold mb-10">Jadwal Pelayanan</h3>
-                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                    <pre class="text-blue-100 whitespace-pre-wrap text-lg leading-relaxed">{{ $puskesmas->schedule }}</pre>
-                </div>
-            </div>
         </div>
     </div>
 </section>

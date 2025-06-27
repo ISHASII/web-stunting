@@ -31,7 +31,7 @@ class User extends Authenticatable
 
     public function measurements()
     {
-        return $this->hasMany(Measurement::class);
+        return $this->hasMany(Measurement::class, 'user_id');
     }
 
     public function isSuperadmin()
@@ -42,5 +42,10 @@ class User extends Authenticatable
     public function isPetugas()
     {
         return $this->role === 'petugas';
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin' || $this->role === 'superadmin';
     }
 }

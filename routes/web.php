@@ -30,13 +30,14 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/children/{child}', [AdminController::class, 'showChild'])->name('admin.children.show');
     Route::get('/measurements', [AdminController::class, 'measurements'])->name('admin.measurements');
     Route::get('/export', [AdminController::class, 'export'])->name('admin.export');
-    Route::get('/admin/children/export', [AdminController::class, 'exportChildren'])->name('admin.children.export');
+    Route::get('/admin/child/{child}/export', [AdminController::class, 'exportChild'])->name('admin.child.export');
 
     // Gallery Management
     Route::resource('gallery', GalleryController::class, ['as' => 'admin']);
 
-    // Petugas Management
-    Route::get('/petugas', [AdminController::class, 'petugas'])->name('admin.petugas');
+    // Petugas Management - Create both route names for compatibility
+    Route::get('/petugas', [AdminController::class, 'petugas'])->name('admin.petugas.index');
+    Route::get('/petugas-list', [AdminController::class, 'petugas'])->name('admin.petugas');
     Route::get('/petugas/create', [AdminController::class, 'createPetugas'])->name('admin.petugas.create');
     Route::post('/petugas', [AdminController::class, 'storePetugas'])->name('admin.petugas.store');
     Route::get('/petugas/{user}/edit', [AdminController::class, 'editPetugas'])->name('admin.petugas.edit');

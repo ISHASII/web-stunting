@@ -14,7 +14,7 @@
 </head>
 <body class="font-sans antialiased bg-gray-50 text-gray-900">
 
-    <!-- Navbar -->
+   <!-- Navbar -->
     <header class="bg-blue-600 text-white">
         <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-4 md:py-6">
             <a href="{{ route('home') }}" class="flex items-center gap-2">
@@ -26,8 +26,6 @@
                 <a href="{{ route('home') }}" class="hover:text-blue-200">Beranda</a>
                 <a href="#about" class="hover:text-blue-200">Tentang</a>
                 <a href="#gallery" class="hover:text-blue-200">Galeri</a>
-                <a href="#contact" class="hover:text-blue-200">Kontak</a>
-
                 @auth
                     <span>{{ auth()->user()->name }}</span>
                     <a href="{{ auth()->user()->role === 'superadmin' ? route('admin.dashboard') : route('petugas.dashboard') }}"
@@ -53,16 +51,31 @@
         </div>
 
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-blue-700 px-4 pb-4">
-            <a href="{{ route('home') }}" class="block py-2 text-white">Beranda</a>
-            <a href="{{ route('stunting.form') }}" class="block py-2 text-white">Deteksi</a>
-            <a href="#about" class="block py-2 text-white">Tentang</a>
-            <a href="#gallery" class="block py-2 text-white">Galeri</a>
-            <a href="#contact" class="block py-2 text-white">Kontak</a>
-            @guest
-                <a href="{{ route('login') }}" class="block py-2 px-4 mt-2 bg-white text-green-600 rounded-lg font-semibold text-center hover:bg-green-50">Login</a>
-            @endguest
-        </div>
+<div id="mobile-menu" class="hidden md:hidden bg-blue-700 px-4 pb-4 space-y-2">
+    <a href="{{ route('home') }}" class="block py-2 text-white">Beranda</a>
+    <a href="#about" class="block py-2 text-white">Tentang</a>
+    <a href="#gallery" class="block py-2 text-white">Galeri</a>
+
+    @auth
+        <div class="text-white font-semibold">{{ auth()->user()->name }}</div>
+        <a href="{{ auth()->user()->role === 'superadmin' ? route('admin.dashboard') : route('petugas.dashboard') }}"
+           class="block w-full text-center bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100">
+            Dashboard
+        </a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit"
+                    class="block w-full text-center bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mt-2">
+                Logout
+            </button>
+        </form>
+    @else
+        <a href="{{ route('login') }}"
+           class="block w-full text-center bg-white text-blue-500 px-4 py-2 rounded-lg font-semibold hover:bg-green-50 mt-2">
+            Login
+        </a>
+    @endauth
+</div>
     </header>
 
     <!-- Content -->

@@ -10,6 +10,7 @@ use App\Models\Puskesmas;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ChildrenExport;
+use App\Exports\SingleChildExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 
@@ -68,7 +69,10 @@ class AdminController extends Controller
 
     public function petugas()
     {
-        $petugas = User::where('role', 'petugas')->paginate(15);
+        $petugas = User::where('role', 'petugas')
+            ->withCount('measurements')
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
         return view('admin.petugas.index', compact('petugas'));
     }
 
@@ -119,9 +123,41 @@ class AdminController extends Controller
 
     public function destroyPetugas(User $user)
     {
-        $user->delete();
-        return redirect()->route('admin.petugas')->with('success', 'Petugas berhasil dihapus');
+        // Validate if petugas has any measurements
+        $measurementCount = $user->measurements()->count();
+
+        if ($measurementCount > 0) {
+            return redirect()->route('admin.petugas.index')
+                ->with('error', "Tidak dapat menghapus petugas {$user->name} karena masih memiliki {$measurementCount} data pengukuran. Hapus data pengukuran terlebih dahulu.");
+        }
+
+        // Check if this is the last admin/superadmin user
+        if (in_array($user->role, ['admin', 'superadmin'])) {
+            $adminCount = User::whereIn('role', ['admin', 'superadmin'])->count();
+            if ($adminCount <= 1) {
+                return redirect()->route('admin.petugas.index')
+                    ->with('error', 'Tidak dapat menghapus admin terakhir dalam sistem.');
+            }
+        }
+
+        // Additional validation: prevent deleting currently logged in user
+        if ($user->id === auth()->id()) {
+            return redirect()->route('admin.petugas.index')
+                ->with('error', 'Tidak dapat menghapus akun yang sedang digunakan.');
+        }
+
+        try {
+            $userName = $user->name;
+            $user->delete();
+
+            return redirect()->route('admin.petugas.index')
+                ->with('success', "Petugas {$userName} berhasil dihapus.");
+        } catch (\Exception $e) {
+            return redirect()->route('admin.petugas.index')
+                ->with('error', 'Terjadi kesalahan saat menghapus data petugas. Silakan coba lagi.');
+        }
     }
+
 
     public function puskesmas()
     {
@@ -164,4 +200,16 @@ class AdminController extends Controller
     // Default: Excel
     return Excel::download(new ChildrenExport, 'children_data.xlsx');
 }
+
+    public function exportChild(Child $child, Request $request)
+    {
+        $format = $request->get('format', 'excel');
+        $filename = "data-anak-" . str_replace(' ', '-', $child->name);
+
+        if ($format === 'pdf') {
+            return Excel::download(new SingleChildExport($child), "{$filename}.pdf", \Maatwebsite\Excel\Excel::DOMPDF);
+        }
+
+        return Excel::download(new SingleChildExport($child), "{$filename}.xlsx");
+    }
 }

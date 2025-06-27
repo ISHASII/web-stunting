@@ -21,9 +21,9 @@
             </div>
         </div>
 
-        <!-- Export Actions - Separate Buttons -->
+        <!-- Export Actions - Individual Child Export -->
         <div class="flex flex-wrap gap-3">
-            <a href="{{ route('admin.children.export', ['child' => $child->id, 'format' => 'excel']) }}"
+            <a href="{{ route('admin.child.export', ['child' => $child->id, 'format' => 'excel']) }}"
                class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg shadow-sm text-sm font-medium hover:bg-green-700 transition-colors">
                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path>
@@ -31,7 +31,7 @@
                 Export Excel
             </a>
 
-            <a href="{{ route('admin.children.export', ['child' => $child->id, 'format' => 'pdf']) }}"
+            <a href="{{ route('admin.child.export', ['child' => $child->id, 'format' => 'pdf']) }}"
                class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg shadow-sm text-sm font-medium hover:bg-red-700 transition-colors">
                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
@@ -322,15 +322,6 @@
             </svg>
             Kembali ke Daftar
         </a>
-
-        @if($measurements->count() > 0)
-        <a href="#" class="inline-flex items-center px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors shadow-sm">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-            </svg>
-            Lihat Grafik Pertumbuhan
-        </a>
-        @endif
     </div>
 </div>
 @endsection

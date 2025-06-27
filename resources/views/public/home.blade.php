@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white overflow-hidden">
+<section class="relative bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-800 text-white overflow-hidden">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-10">
         <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
@@ -28,7 +28,7 @@
 
                 <div class="flex flex-col sm:flex-row gap-6">
                     <a href="#about"
-                       class="group border-2 border-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 text-center hover:shadow-xl transform hover:-translate-y-1">
+                    class="group border-2 border-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 text-center hover:shadow-xl transform hover:-translate-y-1">
                         Pelajari Lebih Lanjut
                     </a>
                 </div>
@@ -37,9 +37,9 @@
             <div class="hidden lg:block animate-fade-in-right">
                 <div class="relative">
                     <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-3xl blur-2xl transform rotate-6"></div>
-                    <img src="{{ asset('images/hero-stunting.jpg') }}"
-                         alt="Anak Sehat"
-                         class="relative rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500">
+                    <img src="{{ asset('stunting.jpg') }}"
+                        alt="Anak Sehat"
+                        class="relative rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500">
                 </div>
             </div>
         </div>
@@ -111,9 +111,9 @@
 
             <div class="relative">
                 <div class="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-indigo-500/20 rounded-3xl blur-2xl transform -rotate-6"></div>
-                <img src="{{ asset('images/stunting-info.jpg') }}"
-                     alt="Informasi Stunting"
-                     class="relative rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-500">
+                <img src="{{ asset('stunting2.jpg') }}"
+                    alt="Informasi Stunting"
+                    class="relative rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-500">
             </div>
         </div>
     </div>
@@ -201,28 +201,51 @@
             <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-8 leading-tight">
                 Galeri <span class="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Kegiatan</span>
             </h2>
-            <p class="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto">
+            <p class="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
                 Program-program pencegahan stunting di Puskesmas
             </p>
+
+            <!-- Toggle Button -->
+            <button id="toggleGallery"
+                    class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                <span id="toggleText">Lihat Galeri</span>
+                <svg id="toggleIcon" class="w-5 h-5 ml-2 transform transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($galleries as $gallery)
-            <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:-translate-y-2">
-                <div class="relative overflow-hidden">
-                    <img src="{{ Storage::url($gallery->image) }}"
-                         alt="{{ $gallery->title }}"
-                         class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <!-- Gallery Content -->
+        <div id="galleryContent" class="hidden transition-all duration-500 ease-in-out transform opacity-0 translate-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($galleries as $gallery)
+                <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:-translate-y-2">
+                    <div class="relative overflow-hidden">
+                        <img src="{{ Storage::url($gallery->image) }}"
+                            alt="{{ $gallery->title }}"
+                            class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                            {{ $gallery->title }}
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed">{{ Str::limit($gallery->description, 120) }}</p>
+                    </div>
                 </div>
-                <div class="p-8">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
-                        {{ $gallery->title }}
-                    </h3>
-                    <p class="text-gray-600 leading-relaxed">{{ Str::limit($gallery->description, 120) }}</p>
-                </div>
+                @endforeach
             </div>
-            @endforeach
+
+            <!-- Hide Gallery Button -->
+            <div class="text-center mt-12">
+                <button id="hideGallery"
+                        class="inline-flex items-center px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    <span>Sembunyikan Galeri</span>
+                    <svg class="w-5 h-5 ml-2 transform rotate-180" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
 </section>
@@ -279,5 +302,70 @@
 .shadow-3xl {
     box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
 }
+
+/* Gallery toggle animations */
+.gallery-show {
+    display: block !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.gallery-hide {
+    opacity: 0 !important;
+    transform: translateY(16px) !important;
+}
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleButton = document.getElementById('toggleGallery');
+    const hideButton = document.getElementById('hideGallery');
+    const galleryContent = document.getElementById('galleryContent');
+    const toggleText = document.getElementById('toggleText');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    if (toggleButton && galleryContent) {
+        toggleButton.addEventListener('click', function() {
+            if (galleryContent.classList.contains('hidden')) {
+                // Show gallery
+                galleryContent.classList.remove('hidden');
+                setTimeout(() => {
+                    galleryContent.classList.add('gallery-show');
+                }, 10);
+
+                toggleText.textContent = 'Sembunyikan Galeri';
+                toggleIcon.classList.add('rotate-180');
+            } else {
+                // Hide gallery
+                galleryContent.classList.remove('gallery-show');
+                galleryContent.classList.add('gallery-hide');
+
+                setTimeout(() => {
+                    galleryContent.classList.add('hidden');
+                    galleryContent.classList.remove('gallery-hide');
+                }, 300);
+
+                toggleText.textContent = 'Lihat Galeri';
+                toggleIcon.classList.remove('rotate-180');
+            }
+        });
+    }
+
+    if (hideButton) {
+        hideButton.addEventListener('click', function() {
+            // Hide gallery
+            galleryContent.classList.remove('gallery-show');
+            galleryContent.classList.add('gallery-hide');
+
+            setTimeout(() => {
+                galleryContent.classList.add('hidden');
+                galleryContent.classList.remove('gallery-hide');
+            }, 300);
+
+            toggleText.textContent = 'Lihat Galeri';
+            toggleIcon.classList.remove('rotate-180');
+        });
+    }
+});
+</script>
 @endsection

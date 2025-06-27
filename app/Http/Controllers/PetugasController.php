@@ -9,6 +9,7 @@ use App\Models\Measurement;
 use App\Services\ZScoreService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log; // Import Log Facade
+use App\Models\User;
 
 class PetugasController extends Controller
 {
@@ -122,5 +123,75 @@ class PetugasController extends Controller
             ->paginate(15);
 
         return view('petugas.measurement.history', compact('measurements'));
+    }
+
+    public function index()
+    {
+        $petugas = User::where('role', 'petugas')
+            ->withCount('measurements')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('admin.petugas.index', compact('petugas'));
+    }
+
+    public function create()
+    {
+        return view('admin.petugas.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => 'petugas',
+        ]);
+
+        return redirect()->route('admin.petugas.index')
+            ->with('success', 'Petugas berhasil ditambahkan');
+    }
+
+    public function edit(User $petugas)
+    {
+        return view('admin.petugas.edit', compact('petugas'));
+    }
+
+    public function update(Request $request, User $petugas)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $petugas->id,
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $petugas->update($data);
+
+        return redirect()->route('admin.petugas.index')
+            ->with('success', 'Petugas berhasil diupdate');
+    }
+
+    public function destroy(User $petugas)
+    {
+        $petugas->delete();
+
+        return redirect()->route('admin.petugas.index')
+            ->with('success', 'Petugas berhasil dihapus');
     }
 }

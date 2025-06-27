@@ -148,18 +148,18 @@
                 </a>
 
                 <!-- Tambah Petugas -->
-                <a href="{{ route('admin.petugas.create') }}"
+                <a href="{{ route('admin.petugas.index') }}"
                    class="group relative bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-indigo-300">
                     <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-blue-500/5 rounded-xl"></div>
                     <div class="relative flex items-center space-x-4">
                         <div class="w-14 h-14 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
                         </div>
                         <div class="flex-1">
-                            <h4 class="text-lg font-semibold text-blue-900 mb-1">Tambah Petugas</h4>
-                            <p class="text-sm text-indigo-600">Buat akun petugas kesehatan baru</p>
+                            <h4 class="text-lg font-semibold text-blue-900 mb-1">Kelola Petugas</h4>
+                            <p class="text-sm text-indigo-600">Lihat dan kelola data petugas kesehatan</p>
                         </div>
                         <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,7 +170,7 @@
                 </a>
 
                 <!-- Tambah Galeri -->
-                <a href="{{ route('admin.gallery.create') }}"
+                <a href="{{ route('admin.gallery.index') }}"
                    class="group relative bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300">
                     <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 rounded-xl"></div>
                     <div class="relative flex items-center space-x-4">

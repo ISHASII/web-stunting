@@ -193,7 +193,7 @@
             <div class="border-t border-gray-200 mt-8 pt-6">
                 <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <p class="text-sm text-gray-600">
-                        &copy; {{ date('Y') }} Sistem Deteksi Stunting - Puskesmas. Seluruh hak dilindungi.
+                        &copy; {{ date('Y') }} Sistem Deteksi Stunting - Posyandu. Seluruh hak dilindungi.
                     </p>
                 </div>
             </div>

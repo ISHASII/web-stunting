@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Sistem Deteksi Stunting - Puskesmas')</title>
+    <title>@yield('title', 'Sistem Deteksi Stunting - Posyandu')</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -19,7 +19,7 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-4 md:py-6">
             <a href="{{ route('home') }}" class="flex items-center gap-2">
                 <img src="{{ asset('images/logo-puskesmas.png') }}" alt="Logo" class="h-8 w-8">
-                <span class="text-lg font-bold">Deteksi Stunting</span>
+                <span class="text-lg font-bold">Posyandu Wargasetra</span>
             </a>
 
             <nav class="hidden md:flex gap-6 items-center">
@@ -87,7 +87,7 @@
     <footer class="bg-gray-800 text-white">
         <div class="max-w-7xl mx-auto py-12 px-4 grid md:grid-cols-4 gap-8">
             <div class="md:col-span-2">
-                <h3 class="font-semibold text-lg mb-2">Puskesmas Loji</h3>
+                <h3 class="font-semibold text-lg mb-2">Posyandu Wargasetra</h3>
                 <p class="text-gray-300">Melayani masyarakat dengan sepenuh hati, khususnya dalam deteksi dini stunting pada anak.</p>
             </div>
             <div>
@@ -109,7 +109,7 @@
             </div>
         </div>
         <div class="text-center text-gray-400 py-4 border-t border-gray-700">
-            &copy; {{ date('Y') }} Puskesmas Loji. All rights reserved.
+            &copy; {{ date('Y') }} Posyandu Wargasetra. All rights reserved.
         </div>
     </footer>
 

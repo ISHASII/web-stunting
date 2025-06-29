@@ -262,7 +262,6 @@
         <div class="space-y-8">
             <p class="text-xl lg:text-2xl text-gray-800 max-w-3xl mx-auto leading-relaxed">
                 Deteksi dini stunting untuk masa depan anak yang lebih cerah.
-                Gratis, mudah digunakan, dan terpercaya.
             </p>
         </div>
     </div>

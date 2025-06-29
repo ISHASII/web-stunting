@@ -23,6 +23,12 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
+// Password Reset Routes
+Route::get('forgot-password', [LoginController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('forgot-password', [LoginController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('reset-password/{token}', [LoginController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [LoginController::class, 'resetPassword'])->name('password.update');
+
 // Admin Routes
 Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -55,4 +61,6 @@ Route::middleware(['petugas'])->prefix('petugas')->group(function () {
     Route::get('/measurement/create', [PetugasController::class, 'createMeasurement'])->name('petugas.measurement.create');
     Route::post('/measurement', [PetugasController::class, 'storeMeasurement'])->name('petugas.measurement.store');
     Route::get('/measurement/history', [PetugasController::class, 'measurementHistory'])->name('petugas.measurement.history');
+    Route::get('/measurement/export/excel', [PetugasController::class, 'exportExcel'])->name('petugas.measurement.export.excel');
+    Route::get('/measurement/export/pdf', [PetugasController::class, 'exportPdf'])->name('petugas.measurement.export.pdf');
 });

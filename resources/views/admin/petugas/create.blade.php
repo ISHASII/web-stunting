@@ -21,7 +21,7 @@
         <!-- Main Form Card -->
         <div class="bg-white/90 backdrop-blur-sm rounded-3xl border border-blue-100/50 overflow-hidden">
             <div class="p-8">
-                <form action="{{ route('admin.petugas.store') }}" method="POST" class="space-y-8">
+                <form id="petugasForm" action="{{ route('admin.petugas.store') }}" method="POST" class="space-y-8">
                     @csrf
 
                     <!-- Grid Layout for wider form -->
@@ -127,7 +127,7 @@
 
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4 pt-8">
-                        <button type="submit"
+                        <button type="button" id="submitBtn"
                                 class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -155,6 +155,64 @@
     </div>
 </div>
 
+<!-- Confirmation Modal -->
+<div id="confirmModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm overflow-y-auto h-full w-full hidden z-50 flex items-center justify-center">
+    <div class="relative p-8 border w-full max-w-lg mx-4 shadow-2xl rounded-3xl bg-white border-gray-200 transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+        <div class="text-center">
+            <!-- Modal Icon -->
+            <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 mb-6 shadow-xl">
+                <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+            </div>
+
+            <!-- Modal Title -->
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Konfirmasi Tambah Petugas</h3>
+
+            <!-- Modal Content -->
+            <div class="text-left bg-gray-50 rounded-2xl p-6 mb-8 border border-gray-200">
+                <p class="text-gray-700 mb-4 font-semibold">Anda akan menambahkan petugas baru dengan data:</p>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="text-gray-600">Nama:</span>
+                        <span class="font-semibold text-gray-800" id="confirmName">-</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="text-gray-600">Email:</span>
+                        <span class="font-semibold text-gray-800" id="confirmEmail">-</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                    <div class="flex items-start space-x-3">
+                        <svg class="w-6 h-6 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div>
+                            <p class="text-blue-800 font-semibold text-sm">Informasi</p>
+                            <p class="text-blue-700 text-sm mt-1">Petugas baru akan mendapat akses untuk melakukan pengukuran stunting pada sistem.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-gray-600 mb-8 text-lg">Apakah Anda yakin ingin menambahkan petugas ini?</p>
+
+            <!-- Modal Actions -->
+            <div class="flex gap-4">
+                <button id="cancelBtn"
+                        class="flex-1 bg-gray-100 text-gray-700 px-6 py-4 rounded-xl hover:bg-gray-200 transition-all duration-300 font-semibold border border-gray-200 hover:border-gray-300 transform hover:scale-105">
+                    Batal
+                </button>
+                <button id="confirmBtn"
+                        class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold shadow-xl transform hover:scale-105">
+                    Ya, Tambahkan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
     /* Custom focus effects */
     .group:focus-within .w-2 {
@@ -176,4 +234,92 @@
         box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05);
     }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const confirmModal = document.getElementById('confirmModal');
+    const modalContent = document.getElementById('modalContent');
+    const submitBtn = document.getElementById('submitBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const petugasForm = document.getElementById('petugasForm');
+
+    const confirmName = document.getElementById('confirmName');
+    const confirmEmail = document.getElementById('confirmEmail');
+
+    // Show confirmation modal
+    function showConfirmModal() {
+        confirmModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            modalContent.classList.remove('scale-95', 'opacity-0');
+            modalContent.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
+
+    // Hide confirmation modal
+    function hideConfirmModal() {
+        modalContent.classList.remove('scale-100', 'opacity-100');
+        modalContent.classList.add('scale-95', 'opacity-0');
+
+        setTimeout(() => {
+            confirmModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    // Submit button click handler
+    submitBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Validate form first
+        const form = petugasForm;
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        // Get form values
+        const nameValue = document.getElementById('name').value;
+        const emailValue = document.getElementById('email').value;
+        const passwordValue = document.getElementById('password').value;
+        const passwordConfirmValue = document.getElementById('password_confirmation').value;
+
+        // Check if passwords match
+        if (passwordValue !== passwordConfirmValue) {
+            alert('Password dan konfirmasi password tidak cocok!');
+            return;
+        }
+
+        // Update modal content
+        confirmName.textContent = nameValue;
+        confirmEmail.textContent = emailValue;
+
+        showConfirmModal();
+    });
+
+    // Cancel button
+    cancelBtn.addEventListener('click', hideConfirmModal);
+
+    // Confirm button
+    confirmBtn.addEventListener('click', function() {
+        petugasForm.submit();
+    });
+
+    // Close modal when clicking outside
+    confirmModal.addEventListener('click', function(e) {
+        if (e.target === confirmModal) {
+            hideConfirmModal();
+        }
+    });
+
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !confirmModal.classList.contains('hidden')) {
+            hideConfirmModal();
+        }
+    });
+});
+</script>
 @endsection

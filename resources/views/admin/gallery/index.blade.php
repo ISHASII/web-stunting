@@ -65,11 +65,11 @@
                                class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition duration-300 text-center">
                                 Edit
                             </a>
-                            <form action="{{ route('admin.gallery.destroy', $gallery) }}" method="POST" class="flex-1">
+                            <form id="delete-form-{{ $gallery->id }}" action="{{ route('admin.gallery.destroy', $gallery) }}" method="POST" class="flex-1">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"
-                                        onclick="return confirm('Yakin ingin menghapus foto ini?')"
+                                <button type="button"
+                                        onclick="confirmDelete({{ $gallery->id }}, '{{ addslashes($gallery->title) }}', '{{ Storage::url($gallery->image) }}')"
                                         class="w-full bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition duration-300">
                                     Hapus
                                 </button>
@@ -110,6 +110,66 @@
     @endif
 </div>
 
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm overflow-y-auto h-full w-full hidden z-50 flex items-center justify-center">
+    <div class="relative p-8 border w-full max-w-lg mx-4 shadow-2xl rounded-3xl bg-white border-gray-200 transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+        <div class="text-center">
+            <!-- Modal Icon -->
+            <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-r from-red-400 to-red-600 mb-6 shadow-xl">
+                <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+            </div>
+
+            <!-- Modal Title -->
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Konfirmasi Hapus Foto</h3>
+
+            <!-- Modal Content -->
+            <div class="text-left bg-gray-50 rounded-2xl p-6 mb-8 border border-gray-200">
+                <p class="text-gray-700 mb-4 font-semibold">Anda akan menghapus foto galeri:</p>
+
+                <!-- Photo Preview -->
+                <div class="mb-4 flex justify-center">
+                    <img id="deleteImagePreview" class="w-32 h-24 object-cover rounded-lg shadow-md border-2 border-gray-200" src="" alt="Preview">
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="text-gray-600">Judul:</span>
+                        <span class="font-semibold text-gray-800 text-right" id="deleteTitle">-</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl">
+                    <div class="flex items-start space-x-3">
+                        <svg class="w-6 h-6 text-red-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.729-.833-2.5 0L4.232 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                        <div>
+                            <p class="text-red-800 font-semibold text-sm">Peringatan!</p>
+                            <p class="text-red-700 text-sm mt-1">Foto yang dihapus tidak dapat dikembalikan. Pastikan Anda yakin dengan keputusan ini.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-gray-600 mb-8 text-lg">Apakah Anda yakin ingin menghapus foto ini?</p>
+
+            <!-- Modal Actions -->
+            <div class="flex gap-4">
+                <button id="cancelDeleteBtn"
+                        class="flex-1 bg-gray-100 text-gray-700 px-6 py-4 rounded-xl hover:bg-gray-200 transition-all duration-300 font-semibold border border-gray-200 hover:border-gray-300 transform hover:scale-105">
+                    Batal
+                </button>
+                <button id="confirmDeleteBtn"
+                        class="flex-1 bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 font-semibold shadow-xl transform hover:scale-105">
+                    Ya, Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
     .line-clamp-2 {
         display: -webkit-box;
@@ -125,4 +185,83 @@
         overflow: hidden;
     }
 </style>
+
+<script>
+// Global variables for modal
+let deleteModal, modalContent, cancelDeleteBtn, confirmDeleteBtn;
+let currentDeleteForm = null;
+
+// Show delete confirmation modal
+function showDeleteModal() {
+    deleteModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    setTimeout(() => {
+        modalContent.classList.remove('scale-95', 'opacity-0');
+        modalContent.classList.add('scale-100', 'opacity-100');
+    }, 10);
+}
+
+// Hide delete confirmation modal
+function hideDeleteModal() {
+    modalContent.classList.remove('scale-100', 'opacity-100');
+    modalContent.classList.add('scale-95', 'opacity-0');
+
+    setTimeout(() => {
+        deleteModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        currentDeleteForm = null;
+    }, 300);
+}
+
+// Confirm delete function
+function confirmDelete(galleryId, title, imageSrc) {
+    // Set the form to be submitted
+    currentDeleteForm = document.getElementById('delete-form-' + galleryId);
+
+    // Update modal content
+    document.getElementById('deleteTitle').textContent = title;
+    document.getElementById('deleteImagePreview').src = imageSrc;
+
+    showDeleteModal();
+}
+
+// Initialize modal functionality
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize modal elements
+    deleteModal = document.getElementById('deleteModal');
+    modalContent = document.getElementById('modalContent');
+    cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+    confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+    // Cancel button
+    cancelDeleteBtn.addEventListener('click', hideDeleteModal);
+
+    // Confirm button
+    confirmDeleteBtn.addEventListener('click', function() {
+        if (currentDeleteForm) {
+            // Show loading state
+            confirmDeleteBtn.disabled = true;
+            confirmDeleteBtn.innerHTML = '<span>Menghapus...</span>';
+
+            // Submit the delete form
+            currentDeleteForm.submit();
+        }
+    });
+
+    // Close modal when clicking outside
+    deleteModal.addEventListener('click', function(e) {
+        if (e.target === deleteModal) {
+            hideDeleteModal();
+        }
+    });
+
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !deleteModal.classList.contains('hidden')) {
+            hideDeleteModal();
+        }
+    });
+});
+</script>
 @endsection

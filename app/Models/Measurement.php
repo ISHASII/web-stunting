@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Measurement extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'child_id',
         'user_id',
@@ -13,13 +16,13 @@ class Measurement extends Model
         'height',
         'z_score',
         'status',
-        'measurement_date',
+        'measurement_date'
     ];
 
     protected $casts = [
-        'measurement_date' => 'date',
         'height' => 'decimal:2',
         'z_score' => 'decimal:2',
+        'measurement_date' => 'datetime',
     ];
 
     public function child()

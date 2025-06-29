@@ -68,11 +68,12 @@
                             Ingat saya
                         </label>
                     </div>
-                    <div class="text-sm">
-                        <a href="#" class="text-blue-600 hover:text-blue-500 transition duration-200">
-                            Lupa password?
-                        </a>
-                    </div>
+                    <div class="text-center mt-4">
+    <a href="{{ route('password.request') }}"
+       class="text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200">
+        Lupa Password?
+    </a>
+</div>
                 </div>
 
                 <!-- Error Messages -->

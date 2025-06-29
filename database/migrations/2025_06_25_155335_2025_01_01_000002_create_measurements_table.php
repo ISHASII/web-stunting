@@ -11,14 +11,16 @@ return new class extends Migration
         Schema::create('measurements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('child_id')->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('age_months');
-            $table->decimal('height', 5, 2);
-            $table->decimal('z_score', 5, 2);
-            $table->enum('status', ['Sangat Pendek', 'Pendek', 'Normal', 'Tinggi']);
             $table->date('measurement_date');
+            $table->decimal('weight', 5, 2); // in kg
+            $table->decimal('height', 5, 2); // in cm
+            $table->decimal('head_circumference', 5, 2)->nullable(); // in cm
+            $table->decimal('arm_circumference', 5, 2)->nullable(); // in cm
+            $table->enum('status', ['Normal', 'Pendek', 'Sangat Pendek'])->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
+
+            $table->index(['child_id', 'measurement_date']);
         });
     }
 

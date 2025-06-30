@@ -93,7 +93,7 @@
                         <div class="space-y-6">
                             <div class="bg-gray-50 rounded-lg p-4">
                                 <label class="block text-sm font-semibold text-gray-600 mb-2">Umur Saat Ini</label>
-                                <p class="text-lg text-gray-900 bg-white px-3 py-2 rounded border">{{ $child->age_in_months }} bulan</p>
+                                <p class="text-lg text-gray-900 bg-white px-3 py-2 rounded border">{{ floor($child->age_in_months) }} bulan</p>
                             </div>
 
                             <div class="bg-gray-50 rounded-lg p-4">
@@ -127,7 +127,7 @@
                 </div>
 
                 <div class="bg-purple-50 rounded-lg p-4 text-center">
-                    <div class="text-2xl font-bold text-purple-700">{{ $child->latest_measurement->height }} cm</div>
+                    <div class="text-2xl font-bold text-purple-700">{{ floor($child->latest_measurement->height) }} cm</div>
                     <div class="text-sm text-purple-600 font-medium">Tinggi Badan</div>
                 </div>
 
@@ -241,7 +241,7 @@
                                 <div class="text-sm font-medium text-gray-900">{{ $measurement->age_months }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">{{ $measurement->height }}</div>
+                                <div class="text-sm font-medium text-gray-900">{{ floor($measurement->height) }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">{{ number_format($measurement->z_score, 2) }}</div>

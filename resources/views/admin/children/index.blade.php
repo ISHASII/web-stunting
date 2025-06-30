@@ -421,10 +421,16 @@
                                             {{ $child->nik }}
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                   <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">
-                                            <div class="font-medium">{{ $child->age_in_months }} bulan</div>
-                                            <div class="text-gray-500">{{ \Carbon\Carbon::parse($child->birth_date)->format('d M Y') }}</div>
+                                            <div class="font-medium">{{ floor($child->age_in_months) }} bulan</div>
+                                            <div class="text-gray-500">
+                                                @if($child->latest_measurement && $child->latest_measurement->height)
+                                                    Tinggi: {{ floor($child->latest_measurement->height) }} cm
+                                                @else
+                                                    {{ \Carbon\Carbon::parse($child->birth_date)->format('d M Y') }}
+                                                @endif
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">

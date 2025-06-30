@@ -1,4 +1,3 @@
-{{-- filepath: c:\Users\ilham\Documents\deteksi-stunting\resources\views\exports\measurements-pdf.blade.php --}}
 <!DOCTYPE html>
 <html>
 <head>
@@ -239,7 +238,7 @@
                 <td>{{ $measurement->child->gender == 'L' ? 'L' : 'P' }}</td>
                 <td>{{ \Carbon\Carbon::parse($measurement->child->birth_date)->format('d/m/Y') }}</td>
                 <td>{{ $measurement->age_months }}b</td>
-                <td>{{ $measurement->height }}cm</td>
+                <td>{{ floor($measurement->height) }}cm</td>
                 <td>{{ number_format($measurement->z_score, 2) }}</td>
                 <td class="
                     @if($measurement->status == 'Normal') status-normal

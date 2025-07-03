@@ -55,6 +55,7 @@ class PetugasController extends Controller
                 'gender' => 'required|in:L,P',
                 'birth_date' => 'required|date|before:today',
                 'height' => 'required|numeric|min:30|max:150',
+                'weight' => 'required|numeric|min:1|max:50',
                 'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ], [
                 'nik.digits' => 'NIK harus terdiri dari tepat 16 digit angka.',
@@ -62,6 +63,9 @@ class PetugasController extends Controller
                 'birth_date.before' => 'Tanggal lahir harus sebelum hari ini.',
                 'height.min' => 'Tinggi badan minimal 30 cm.',
                 'height.max' => 'Tinggi badan maksimal 150 cm.',
+                'weight.required' => 'Berat badan wajib diisi.',
+                'weight.min' => 'Berat badan minimal 1 kg.',
+                'weight.max' => 'Berat badan maksimal 50 kg.',
             ]);
 
             Log::info('Validasi berhasil:', $validated);
@@ -102,10 +106,12 @@ class PetugasController extends Controller
             // Normalize input
             $gender = strtoupper(trim($request->gender));
             $height = (float) $request->height;
+            $weight = (float) $request->weight;
 
             Log::info('Data dinormalisasi:', [
                 'gender' => $gender,
                 'height' => $height,
+                'weight' => $weight,
                 'age_months' => $ageMonths
             ]);
 
@@ -191,6 +197,7 @@ class PetugasController extends Controller
                 'user_id' => $userId,
                 'age_months' => $ageMonths,
                 'height' => $height,
+                'weight' => $weight,
                 'z_score' => $zScore,
                 'status' => $status,
                 'measurement_date' => now(),

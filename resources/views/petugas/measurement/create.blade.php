@@ -196,6 +196,31 @@
                             @enderror
                         </div>
 
+                        <!-- Weight Field -->
+                        <div class="group">
+                            <label for="weight" class="flex items-center space-x-2 text-sm font-semibold text-gray-800 mb-3">
+                                <span>Berat Badan (kg)</span>
+                                <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <input type="number" id="weight" name="weight" required step="0.1" min="1" max="50"
+                                       class="w-full pl-4 pr-12 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-800 placeholder-gray-400"
+                                       value="{{ old('weight') }}"
+                                       placeholder="Contoh: 12.5">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                                    <span class="text-gray-500 text-sm font-medium">kg</span>
+                                </div>
+                            </div>
+                            @error('weight')
+                                <div class="flex items-center space-x-2 mt-2">
+                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <p class="text-red-600 text-sm font-medium">{{ $message }}</p>
+                                </div>
+                            @enderror
+                        </div>
+
                         <!-- Photo Upload Section -->
                         <div class="group">
                             <label class="flex items-center space-x-2 text-sm font-semibold text-gray-800 mb-3">
@@ -346,9 +371,13 @@
                         <span class="text-gray-600">Tanggal Lahir:</span>
                         <span class="font-semibold text-gray-800" id="confirmBirthDate">-</span>
                     </div>
-                    <div class="flex justify-between items-center py-2">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
                         <span class="text-gray-600">Tinggi Badan:</span>
                         <span class="font-semibold text-gray-800" id="confirmHeight">-</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="text-gray-600">Berat Badan:</span>
+                        <span class="font-semibold text-gray-800" id="confirmWeight">-</span>
                     </div>
                 </div>
 
@@ -533,6 +562,19 @@ function validateForm() {
         return false;
     }
 
+    const weightValue = document.getElementById('weight').value;
+    if (!weightValue) {
+        alert('Berat badan harus diisi!');
+        document.getElementById('weight').focus();
+        return false;
+    }
+
+    if (weightValue < 1 || weightValue > 50) {
+        alert('Berat badan harus antara 1-50 kg!');
+        document.getElementById('weight').focus();
+        return false;
+    }
+
     return true;
 }
 
@@ -593,6 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const genderValue = document.getElementById('gender').value;
         const birthDateValue = document.getElementById('birth_date').value;
         const heightValue = document.getElementById('height').value;
+        const weightValue = document.getElementById('weight').value;
 
         // Update modal content
         document.getElementById('confirmNik').textContent = nikValue;
@@ -600,6 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('confirmGender').textContent = genderValue === 'L' ? 'Laki-laki' : 'Perempuan';
         document.getElementById('confirmBirthDate').textContent = new Date(birthDateValue).toLocaleDateString('id-ID');
         document.getElementById('confirmHeight').textContent = heightValue + ' cm';
+        document.getElementById('confirmWeight').textContent = weightValue + ' kg';
 
         showConfirmModal();
     });

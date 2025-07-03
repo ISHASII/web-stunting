@@ -58,7 +58,7 @@ class SingleChildExport implements FromCollection, WithHeadings, WithTitle, With
             [
                 'Kategori' => '',
                 'Keterangan' => 'Tanggal Lahir',
-                'Nilai' => $this->child->birth_date->format('d/m/Y'),
+                'Nilai' => $this->child->birth_date ? $this->child->birth_date : '-',
                 'Tanggal' => '',
                 'Status' => '',
                 'Z-Score' => ''
@@ -74,7 +74,15 @@ class SingleChildExport implements FromCollection, WithHeadings, WithTitle, With
             [
                 'Kategori' => '',
                 'Keterangan' => 'Tinggi Badan Terakhir',
-                'Nilai' => $latestMeasurement ? floor($latestMeasurement->height) . ' cm' : 'Belum diukur',
+                'Nilai' => $latestMeasurement ? floor((float)$latestMeasurement->height) . ' cm' : 'Belum diukur',
+                'Tanggal' => '',
+                'Status' => '',
+                'Z-Score' => ''
+            ],
+            [
+                'Kategori' => '',
+                'Keterangan' => 'Berat Badan Terakhir',
+                'Nilai' => $latestMeasurement && $latestMeasurement->weight ? number_format((float)$latestMeasurement->weight, 1) . ' kg' : 'Belum diukur',
                 'Tanggal' => '',
                 'Status' => '',
                 'Z-Score' => ''
@@ -105,12 +113,12 @@ class SingleChildExport implements FromCollection, WithHeadings, WithTitle, With
             ]
         ]);
 
-        // Add measurements header
+            // Add measurements header
         if ($measurements->count() > 0) {
             $data->push([
                 'Kategori' => 'RIWAYAT PENGUKURAN',
                 'Keterangan' => 'Umur (Bulan)',
-                'Nilai' => 'Tinggi Badan (cm)',
+                'Nilai' => 'Tinggi (cm) / Berat (kg)',
                 'Tanggal' => 'Tanggal Pengukuran',
                 'Status' => 'Status Gizi',
                 'Z-Score' => 'Z-Score'
@@ -118,13 +126,17 @@ class SingleChildExport implements FromCollection, WithHeadings, WithTitle, With
 
             // Add each measurement
             foreach ($measurements as $measurement) {
+                $heightValue = floor((float)$measurement->height) . ' cm';
+                $weightValue = $measurement->weight ? number_format((float)$measurement->weight, 1) . ' kg' : '-';
+                $combinedValue = $heightValue . ' / ' . $weightValue;
+
                 $data->push([
                     'Kategori' => '',
                     'Keterangan' => $measurement->age_months . ' bulan',
-                    'Nilai' => floor($measurement->height) . ' cm',
+                    'Nilai' => $combinedValue,
                     'Tanggal' => $measurement->measurement_date->format('d/m/Y'),
                     'Status' => $measurement->status,
-                    'Z-Score' => number_format($measurement->z_score, 2)
+                    'Z-Score' => number_format((float)$measurement->z_score, 2)
                 ]);
             }
         } else {

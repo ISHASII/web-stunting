@@ -61,14 +61,26 @@
                         </div>
                     </div>
 
-                    <div>
-                        <label for="height" class="block text-sm font-medium text-gray-700 mb-2">Tinggi Badan (cm)</label>
-                        <input type="number" id="height" name="height" required step="0.1" min="30" max="150"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                               value="{{ old('height') }}">
-                        @error('height')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="height" class="block text-sm font-medium text-gray-700 mb-2">Tinggi Badan (cm)</label>
+                            <input type="number" id="height" name="height" required step="0.1" min="30" max="150"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                   value="{{ old('height') }}">
+                            @error('height')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="weight" class="block text-sm font-medium text-gray-700 mb-2">Berat Badan (kg)</label>
+                            <input type="number" id="weight" name="weight" required step="0.1" min="1" max="50"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                   value="{{ old('weight') }}">
+                            @error('weight')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
 
                     <div>

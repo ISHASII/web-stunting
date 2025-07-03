@@ -120,7 +120,7 @@
         </div>
 
         <div class="p-6">
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
                 <div class="bg-blue-50 rounded-lg p-4 text-center">
                     <div class="text-2xl font-bold text-blue-700">{{ $child->latest_measurement->measurement_date->format('d/m/Y') }}</div>
                     <div class="text-sm text-blue-600 font-medium">Tanggal Pengukuran</div>
@@ -129,6 +129,11 @@
                 <div class="bg-purple-50 rounded-lg p-4 text-center">
                     <div class="text-2xl font-bold text-purple-700">{{ floor($child->latest_measurement->height) }} cm</div>
                     <div class="text-sm text-purple-600 font-medium">Tinggi Badan</div>
+                </div>
+
+                <div class="bg-green-50 rounded-lg p-4 text-center">
+                    <div class="text-2xl font-bold text-green-700">{{ $child->latest_measurement->weight ? number_format($child->latest_measurement->weight, 1) : '-' }} kg</div>
+                    <div class="text-sm text-green-600 font-medium">Berat Badan</div>
                 </div>
 
                 <div class="bg-orange-50 rounded-lg p-4 text-center">
@@ -209,6 +214,9 @@
                                 Tinggi (cm)
                             </th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Berat (kg)
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                 Z-Score
                             </th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -242,6 +250,9 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">{{ floor($measurement->height) }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">{{ $measurement->weight ? number_format($measurement->weight, 1) : '-' }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">{{ number_format($measurement->z_score, 2) }}</div>

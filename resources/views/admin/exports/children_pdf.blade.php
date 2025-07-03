@@ -199,15 +199,16 @@
     <table>
         <thead>
             <tr>
-                <th width="5%">No</th>
-                <th width="15%">NIK</th>
-                <th width="20%">Nama Anak</th>
-                <th width="10%">JK</th>
-                <th width="8%">Umur</th>
-                <th width="10%">Tinggi Terakhir</th>
-                <th width="15%">Status Terakhir</th>
-                <th width="12%">Jml Pengukuran</th>
-                <th width="5%">Aksi</th>
+                <th width="4%">No</th>
+                <th width="14%">NIK</th>
+                <th width="18%">Nama Anak</th>
+                <th width="8%">JK</th>
+                <th width="7%">Umur</th>
+                <th width="9%">Tinggi Terakhir</th>
+                <th width="9%">Berat Terakhir</th>
+                <th width="14%">Status Terakhir</th>
+                <th width="10%">Jml Pengukuran</th>
+                <th width="7%">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -229,6 +230,13 @@
                     <td class="text-center">
                         @if($child->latest_measurement && $child->latest_measurement->height)
                             {{ floor($child->latest_measurement->height) }}cm
+                        @else
+                            <span style="color: #9CA3AF;">-</span>
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        @if($child->latest_measurement && $child->latest_measurement->weight)
+                            {{ number_format($child->latest_measurement->weight, 1) }}kg
                         @else
                             <span style="color: #9CA3AF;">-</span>
                         @endif

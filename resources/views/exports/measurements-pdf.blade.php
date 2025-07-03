@@ -219,12 +219,13 @@
                 <th width="4%">No</th>
                 <th width="10%">Tanggal</th>
                 <th width="15%">NIK</th>
-                <th width="18%">Nama Anak</th>
-                <th width="8%">JK</th>
-                <th width="10%">Tgl Lahir</th>
-                <th width="8%">Usia</th>
-                <th width="8%">Tinggi</th>
-                <th width="8%">Z-Score</th>
+                <th width="16%">Nama Anak</th>
+                <th width="7%">JK</th>
+                <th width="9%">Tgl Lahir</th>
+                <th width="7%">Usia</th>
+                <th width="7%">Tinggi</th>
+                <th width="7%">Berat</th>
+                <th width="7%">Z-Score</th>
                 <th width="11%">Status</th>
             </tr>
         </thead>
@@ -239,6 +240,7 @@
                 <td>{{ \Carbon\Carbon::parse($measurement->child->birth_date)->format('d/m/Y') }}</td>
                 <td>{{ $measurement->age_months }}b</td>
                 <td>{{ floor($measurement->height) }}cm</td>
+                <td>{{ $measurement->weight ? number_format($measurement->weight, 1) . 'kg' : '-' }}</td>
                 <td>{{ number_format($measurement->z_score, 2) }}</td>
                 <td class="
                     @if($measurement->status == 'Normal') status-normal

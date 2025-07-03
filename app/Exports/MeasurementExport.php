@@ -41,6 +41,7 @@ class MeasurementExport implements FromCollection, WithHeadings, WithMapping, Wi
             'Tanggal Lahir',
             'Usia (Bulan)',
             'Tinggi Badan (cm)',
+            'Berat Badan (kg)',
             'Z-Score',
             'Status Stunting',
             'Petugas'
@@ -61,6 +62,7 @@ class MeasurementExport implements FromCollection, WithHeadings, WithMapping, Wi
                 Carbon::parse($measurement->child->birth_date)->format('d/m/Y'),
                 $measurement->age_months,
                 $measurement->height,
+                $measurement->weight ?? '-',
                 number_format($measurement->z_score, 2),
                 $measurement->status,
                 $measurement->user->name ?? 'N/A'
@@ -73,6 +75,7 @@ class MeasurementExport implements FromCollection, WithHeadings, WithMapping, Wi
             
             return [
                 $no++,
+                'Error',
                 'Error',
                 'Error',
                 'Error',
@@ -106,7 +109,7 @@ class MeasurementExport implements FromCollection, WithHeadings, WithMapping, Wi
                 ],
             ],
             // Style all cells
-            'A:K' => [
+            'A:L' => [
                 'borders' => [
                     'allBorders' => [
                         'borderStyle' => Border::BORDER_THIN,
@@ -131,9 +134,10 @@ class MeasurementExport implements FromCollection, WithHeadings, WithMapping, Wi
             'F' => 15,  // Tanggal Lahir
             'G' => 12,  // Usia
             'H' => 15,  // Tinggi Badan
-            'I' => 12,  // Z-Score
-            'J' => 18,  // Status
-            'K' => 20,  // Petugas
+            'I' => 15,  // Berat Badan
+            'J' => 12,  // Z-Score
+            'K' => 18,  // Status
+            'L' => 20,  // Petugas
         ];
     }
 

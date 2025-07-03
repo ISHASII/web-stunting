@@ -50,6 +50,7 @@ class ChildrenExport implements FromCollection, WithHeadings, WithStyles, WithCo
             $child->birth_date ? \Carbon\Carbon::parse($child->birth_date)->format('d/m/Y') : '-',
             floor($child->age_in_months) . ' bulan',
             $latestMeasurement ? floor($latestMeasurement->height) . ' cm' : 'Belum diukur',
+            $latestMeasurement && $latestMeasurement->weight ? number_format((float)$latestMeasurement->weight, 1) . ' kg' : 'Belum diukur',
             $latestMeasurement ? $latestMeasurement->status : 'Belum diukur',
             $child->measurements->count() . ' kali',
             $child->created_at->format('d/m/Y'),
@@ -65,6 +66,7 @@ class ChildrenExport implements FromCollection, WithHeadings, WithStyles, WithCo
             'Tanggal Lahir',
             'Usia',
             'Tinggi Terakhir',
+            'Berat Terakhir',
             'Status Terakhir',
             'Total Pengukuran',
             'Terdaftar Pada',
@@ -147,9 +149,10 @@ class ChildrenExport implements FromCollection, WithHeadings, WithStyles, WithCo
             "G2:G{$rowCount}" => ['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER]],
             "H2:H{$rowCount}" => ['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER]],
             "I2:I{$rowCount}" => ['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER]],
+            "J2:J{$rowCount}" => ['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER]],
 
             // Alternating row colors for better readability
-            "A2:I" . ($rowCount % 2 == 0 ? $rowCount : $rowCount - 1) => [
+            "A2:J" . ($rowCount % 2 == 0 ? $rowCount : $rowCount - 1) => [
                 'fill' => [
                     'fillType' => Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F8FAFC'],
@@ -167,9 +170,10 @@ class ChildrenExport implements FromCollection, WithHeadings, WithStyles, WithCo
             'D' => 15,  // Tanggal Lahir
             'E' => 12,  // Usia
             'F' => 15,  // Tinggi Terakhir
-            'G' => 18,  // Status Terakhir
-            'H' => 15,  // Total Pengukuran
-            'I' => 15,  // Terdaftar Pada
+            'G' => 15,  // Berat Terakhir
+            'H' => 18,  // Status Terakhir
+            'I' => 15,  // Total Pengukuran
+            'J' => 15,  // Terdaftar Pada
         ];
     }
 

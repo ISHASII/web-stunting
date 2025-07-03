@@ -31,6 +31,7 @@ class StuntingController extends Controller
             'gender' => 'required|in:L,P',
             'birth_date' => 'required|date',
             'height' => 'required|numeric|min:30|max:150',
+            'weight' => 'required|numeric|min:1|max:50',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 

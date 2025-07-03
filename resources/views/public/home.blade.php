@@ -111,7 +111,7 @@
 
             <div class="relative">
                 <div class="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-indigo-500/20 rounded-3xl blur-2xl transform -rotate-6"></div>
-                <img src="{{ asset('stunting2.jpg') }}"
+                <img src="{{ asset('stuntingg.jpg') }}"
                     alt="Informasi Stunting"
                     class="relative rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-500">
             </div>

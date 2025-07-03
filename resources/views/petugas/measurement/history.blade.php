@@ -216,6 +216,10 @@
                                         <p class="font-medium">{{ floor($measurement->height) }} cm</p>
                                     </div>
                                     <div>
+                                        <span class="text-gray-500">Berat:</span>
+                                        <p class="font-medium">{{ $measurement->weight ? number_format($measurement->weight, 1) . ' kg' : '-' }}</p>
+                                    </div>
+                                    <div>
                                         <span class="text-gray-500">Z-Score:</span>
                                         <p class="font-medium">{{ number_format($measurement->z_score, 2) }}</p>
                                     </div>
@@ -246,6 +250,9 @@
                                     Tinggi (cm)
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-semibold text-blue-900 uppercase tracking-wider">
+                                    Berat (kg)
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-blue-900 uppercase tracking-wider">
                                     Z-Score
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-semibold text-blue-900 uppercase tracking-wider">
@@ -272,6 +279,9 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
                                     {{ floor($measurement->height) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                                    {{ $measurement->weight ? number_format($measurement->weight, 1) : '-' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-mono">
                                     {{ number_format($measurement->z_score, 2) }}

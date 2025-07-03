@@ -14,6 +14,7 @@ class Measurement extends Model
         'user_id',
         'age_months',
         'height',
+        'weight',
         'z_score',
         'status',
         'measurement_date'
@@ -21,6 +22,7 @@ class Measurement extends Model
 
     protected $casts = [
         'height' => 'decimal:2',
+        'weight' => 'decimal:2',
         'z_score' => 'decimal:2',
         'measurement_date' => 'datetime',
     ];

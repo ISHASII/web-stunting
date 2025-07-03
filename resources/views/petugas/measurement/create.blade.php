@@ -227,6 +227,7 @@
                                 <span>Foto Anak (Opsional)</span>
                             </label>
                             <div class="relative">
+                                <input type="file" id="photo" name="photo" accept="image/*" class="hidden">
                                 <div id="upload-area" class="border-2 border-dashed border-blue-300 rounded-xl bg-blue-50/50 hover:bg-blue-50 transition-colors duration-300 cursor-pointer">
                                     <div class="p-6 text-center">
                                         <div class="mx-auto w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mb-4">
@@ -234,8 +235,6 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                             </svg>
                                         </div>
-                                        <input type="file" id="photo" name="photo" accept="image/*"
-                                               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                                         <p class="text-blue-700 font-semibold mb-1">Klik untuk pilih foto</p>
                                         <p class="text-gray-500 text-sm">atau drag & drop file di sini</p>
                                         <p class="text-xs text-gray-400 mt-2">Format: JPG, JPEG, PNG • Maksimal 2MB</p>
@@ -626,12 +625,15 @@ document.addEventListener('DOMContentLoaded', () => {
     uploadArea.addEventListener('drop', handleDrop, false);
 
     // Handle click to open file dialog
-    uploadArea.addEventListener('click', () => {
+    uploadArea.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         fileInput.click();
     });
 
     // Handle file input change
-    fileInput.addEventListener('change', function() {
+    fileInput.addEventListener('change', function(e) {
+        e.stopPropagation();
         handleFileSelect(this);
     });
 

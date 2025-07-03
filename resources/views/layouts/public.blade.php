@@ -19,7 +19,7 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-4 md:py-6">
             <a href="{{ route('home') }}" class="flex items-center gap-2">
                 <img src="{{ asset('images/logo-puskesmas.png') }}" alt="Logo" class="h-8 w-8">
-                <span class="text-lg font-bold">Posyandu Wargasetra</span>
+                <span class="text-lg font-bold">NutriSetra</span>
             </a>
 
             <nav class="hidden md:flex gap-6 items-center">

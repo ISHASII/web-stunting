@@ -249,6 +249,71 @@ class AdminController extends Controller
         return redirect()->route('admin.petugas')->with('success', 'Petugas berhasil ditambahkan');
     }
 
+    public function editChild(Child $child)
+    {
+        return view('admin.children.edit', compact('child'));
+    }
+
+    public function updateChild(Request $request, Child $child)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'nik' => 'required|string|max:16|unique:children,nik,' . $child->id,
+            'gender' => 'required|in:L,P',
+            'birth_date' => 'required|date|before:today',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'parent_name' => 'nullable|string|max:255',
+            'parent_phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:500',
+        ]);
+
+        $data = $request->except(['photo']);
+
+        // Handle photo upload
+        if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($child->photo) {
+                Storage::delete($child->photo);
+            }
+
+            $photoPath = $request->file('photo')->store('children-photos', 'public');
+            $data['photo'] = $photoPath;
+        }
+
+        $child->update($data);
+
+        return redirect()->route('admin.children.show', $child)
+            ->with('success', 'Data anak berhasil diperbarui');
+    }
+
+    public function destroyChild(Child $child)
+    {
+        try {
+            // Check if child has measurements
+            $measurementCount = $child->measurements()->count();
+
+            if ($measurementCount > 0) {
+                return redirect()->route('admin.children')
+                    ->with('error', "Tidak dapat menghapus data anak {$child->name} karena masih memiliki {$measurementCount} data pengukuran. Hapus data pengukuran terlebih dahulu atau hubungi administrator sistem.");
+            }
+
+            // Delete photo if exists
+            if ($child->photo) {
+                Storage::delete($child->photo);
+            }
+
+            $childName = $child->name;
+            $child->delete();
+
+            return redirect()->route('admin.children')
+                ->with('success', "Data anak {$childName} berhasil dihapus");
+
+        } catch (\Exception $e) {
+            return redirect()->route('admin.children')
+                ->with('error', 'Terjadi kesalahan saat menghapus data anak. Silakan coba lagi.');
+        }
+    }
+
     public function editPetugas(User $user)
     {
         return view('admin.petugas.edit', compact('user'));

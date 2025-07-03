@@ -227,8 +227,7 @@
                                 <span>Foto Anak (Opsional)</span>
                             </label>
                             <div class="relative">
-                                <div id="upload-area" class="border-2 border-dashed border-blue-300 rounded-xl bg-blue-50/50 hover:bg-blue-50 transition-colors duration-300 cursor-pointer"
-                                     onclick="document.getElementById('photo').click();">
+                                <div id="upload-area" class="border-2 border-dashed border-blue-300 rounded-xl bg-blue-50/50 hover:bg-blue-50 transition-colors duration-300 cursor-pointer">
                                     <div class="p-6 text-center">
                                         <div class="mx-auto w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mb-4">
                                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,7 +235,7 @@
                                             </svg>
                                         </div>
                                         <input type="file" id="photo" name="photo" accept="image/*"
-                                               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="handleFileSelect(this)">
+                                               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                                         <p class="text-blue-700 font-semibold mb-1">Klik untuk pilih foto</p>
                                         <p class="text-gray-500 text-sm">atau drag & drop file di sini</p>
                                         <p class="text-xs text-gray-400 mt-2">Format: JPG, JPEG, PNG • Maksimal 2MB</p>
@@ -273,46 +272,46 @@
                         </div>
                     </div>
 
-                    <!-- Important Notes - Mobile Optimized -->
-<div class="bg-gradient-to-br from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-2xl overflow-hidden">
-    <!-- Header -->
-    <div class="bg-blue-100/50 px-4 py-3 sm:px-6">
-        <div class="flex items-center justify-center sm:justify-start space-x-3">
-            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg class="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                </svg>
-            </div>
-            <h4 class="text-sm sm:text-base font-semibold text-blue-800">Catatan Penting</h4>
-        </div>
-    </div>
+                    <!-- Important Notes -->
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-2xl overflow-hidden">
+                        <!-- Header -->
+                        <div class="bg-blue-100/50 px-4 py-3 sm:px-6">
+                            <div class="flex items-center justify-center sm:justify-start space-x-3">
+                                <div class="w-6 h-6 sm:w-8 sm:h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-sm sm:text-base font-semibold text-blue-800">Catatan Penting</h4>
+                            </div>
+                        </div>
 
-    <!-- Content -->
-    <div class="px-4 py-4 sm:px-6 sm:py-5">
-        <div class="space-y-3 sm:space-y-2">
-            <div class="flex items-start space-x-3">
-                <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                <p class="text-sm text-blue-700 leading-relaxed">
-                    Pastikan pengukuran tinggi badan dilakukan dengan tepat dan akurat
-                </p>
-            </div>
+                        <!-- Content -->
+                        <div class="px-4 py-4 sm:px-6 sm:py-5">
+                            <div class="space-y-3 sm:space-y-2">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-blue-700 leading-relaxed">
+                                        Pastikan pengukuran tinggi badan dilakukan dengan tepat dan akurat
+                                    </p>
+                                </div>
 
-            <div class="flex items-start space-x-3">
-                <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                <p class="text-sm text-blue-700 leading-relaxed">
-                    Sistem ini diperuntukkan untuk anak usia 0-60 bulan
-                </p>
-            </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-blue-700 leading-relaxed">
+                                        Sistem ini diperuntukkan untuk anak usia 0-60 bulan
+                                    </p>
+                                </div>
 
-            <div class="flex items-start space-x-3">
-                <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                <p class="text-sm text-blue-700 leading-relaxed">
-                    Data akan disimpan dalam sistem untuk tracking pertumbuhan anak
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-blue-700 leading-relaxed">
+                                        Data akan disimpan dalam sistem untuk tracking pertumbuhan anak
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4 pt-8 border-t border-gray-100">
@@ -489,6 +488,23 @@ function formatFileSize(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
+// Handle drag and drop files
+function handleDragDrop(files) {
+    const fileInput = document.getElementById('photo');
+
+    if (files.length > 0) {
+        const file = files[0];
+
+        // Create a new DataTransfer object and add the file
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        fileInput.files = dt.files;
+
+        // Trigger the file selection handler
+        handleFileSelect(fileInput);
+    }
+}
+
 // Show confirmation modal
 function showConfirmModal() {
     confirmModal.classList.remove('hidden');
@@ -578,7 +594,7 @@ function validateForm() {
     return true;
 }
 
-// Drag and Drop
+// Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize modal elements
     confirmModal = document.getElementById('confirmModal');
@@ -591,34 +607,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('photo');
 
-    // Drag and drop functionality
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
-        uploadArea.addEventListener(event, e => {
-            e.preventDefault();
-            e.stopPropagation();
-        }, false);
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
     });
 
-    ['dragenter', 'dragover'].forEach(event => {
-        uploadArea.addEventListener(event, () => {
-            uploadArea.classList.add('border-blue-500', 'bg-blue-50');
-        });
+    // Highlight drop area when item is dragged over it
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, highlight, false);
     });
 
-    ['dragleave', 'drop'].forEach(event => {
-        uploadArea.addEventListener(event, () => {
-            uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
-        });
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, unhighlight, false);
     });
 
-    uploadArea.addEventListener('drop', e => {
+    // Handle dropped files
+    uploadArea.addEventListener('drop', handleDrop, false);
+
+    // Handle click to open file dialog
+    uploadArea.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // Handle file input change
+    fileInput.addEventListener('change', function() {
+        handleFileSelect(this);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    function highlight(e) {
+        uploadArea.classList.add('border-blue-500', 'bg-blue-50');
+    }
+
+    function unhighlight(e) {
+        uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
+    }
+
+    function handleDrop(e) {
         const dt = e.dataTransfer;
         const files = dt.files;
-        if (files.length > 0) {
-            fileInput.files = files;
-            handleFileSelect(fileInput);
-        }
-    });
+        handleDragDrop(files);
+    }
 
     // Submit button click handler
     submitBtn.addEventListener('click', function(e) {

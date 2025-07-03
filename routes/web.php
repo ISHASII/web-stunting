@@ -34,6 +34,9 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/children', [AdminController::class, 'children'])->name('admin.children');
     Route::get('/children/{child}', [AdminController::class, 'showChild'])->name('admin.children.show');
+    Route::get('/children/{child}/edit', [AdminController::class, 'editChild'])->name('admin.children.edit');
+    Route::put('/children/{child}', [AdminController::class, 'updateChild'])->name('admin.children.update');
+    Route::delete('/children/{child}', [AdminController::class, 'destroyChild'])->name('admin.children.destroy');
     Route::get('/measurements', [AdminController::class, 'measurements'])->name('admin.measurements');
     Route::get('/export', [AdminController::class, 'export'])->name('admin.export');
     Route::get('/admin/child/{child}/export', [AdminController::class, 'exportChild'])->name('admin.child.export');

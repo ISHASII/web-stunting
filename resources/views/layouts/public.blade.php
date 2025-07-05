@@ -18,7 +18,6 @@
     <header class="bg-blue-600 text-white">
         <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-4 md:py-6">
             <a href="{{ route('home') }}" class="flex items-center gap-2">
-                <img src="{{ asset('images/logo-puskesmas.png') }}" alt="Logo" class="h-8 w-8">
                 <span class="text-lg font-bold">NutriSetra</span>
             </a>
 
@@ -96,15 +95,6 @@
                     <li><a href="{{ route('home') }}" class="hover:text-white">Beranda</a></li>
                     <li><a href="#about" class="hover:text-white">Tentang</a></li>
                     <li><a href="#gallery" class="hover:text-white">Galeri</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-semibold text-lg mb-2">Kontak</h4>
-                <ul class="text-gray-300 space-y-1">
-                    <li>📍 Jl. Raya Loji Karawang, Kampung Munjul RT 02/ RW 01, Desa Cintalaksana, Tegalwaru, Karawang 41362</li>
-                    <li>📞 (022) 1234567</li>
-                    <li>✉️ info@puskesmassukamaju.go.id</li>
-                    <li>🕒 Senin - Jumat: 08.00 - 15.00</li>
                 </ul>
             </div>
         </div>

@@ -502,7 +502,7 @@
 </div>
 
 <!-- Hidden form for deletion -->
-<form id="deleteForm" method="POST" style="display: none;">
+<form id="deleteForm" method="POST" action="{{ route('admin.children.destroy', $child) }}" style="display: none;">
     @csrf
     @method('DELETE')
 </form>
@@ -514,9 +514,6 @@ function confirmDelete(childId, childName, measurementCount) {
     const confirmBtn = document.getElementById('confirmDeleteBtn');
     const cancelBtn = document.getElementById('cancelDeleteBtn');
     const deleteForm = document.getElementById('deleteForm');
-
-    // Set the form action
-    deleteForm.action = `/admin/children/${childId}`;
 
     // Set the message based on measurement count
     if (measurementCount > 0) {

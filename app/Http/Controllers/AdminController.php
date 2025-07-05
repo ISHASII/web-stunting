@@ -286,31 +286,26 @@ class AdminController extends Controller
             ->with('success', 'Data anak berhasil diperbarui');
     }
 
+
     public function destroyChild(Child $child)
     {
         try {
-            // Check if child has measurements
-            $measurementCount = $child->measurements()->count();
-
-            if ($measurementCount > 0) {
-                return redirect()->route('admin.children')
-                    ->with('error', "Tidak dapat menghapus data anak {$child->name} karena masih memiliki {$measurementCount} data pengukuran. Hapus data pengukuran terlebih dahulu atau hubungi administrator sistem.");
-            }
-
-            // Delete photo if exists
+            // Hapus foto jika ada
             if ($child->photo) {
                 Storage::delete($child->photo);
             }
 
-            $childName = $child->name;
+            // Hapus pengukuran terkait terlebih dahulu
+            $child->measurements()->delete();
+
+            // Hapus data anak
             $child->delete();
 
             return redirect()->route('admin.children')
-                ->with('success', "Data anak {$childName} berhasil dihapus");
-
+                ->with('success', 'Data anak berhasil dihapus');
         } catch (\Exception $e) {
-            return redirect()->route('admin.children')
-                ->with('error', 'Terjadi kesalahan saat menghapus data anak. Silakan coba lagi.');
+            return redirect()->back()
+                ->with('error', 'Gagal menghapus data anak: ' . $e->getMessage());
         }
     }
 

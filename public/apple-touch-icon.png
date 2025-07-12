@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <!-- Background -->
+  <rect width="180" height="180" fill="#2563eb" rx="20"/>
+  
+  <!-- Medical cross -->
+  <rect x="73" y="45" width="34" height="90" fill="white" rx="5"/>
+  <rect x="45" y="73" width="90" height="34" fill="white" rx="5"/>
+  
+  <!-- Heart symbol -->
+  <path d="M90 135c-8-8-24-16-24-32 0-8 6-14 12-14s12 6 12 14c0-8 6-14 12-14s12 6 12 14c0 16-16 24-24 32z" fill="#ef4444"/>
+</svg>

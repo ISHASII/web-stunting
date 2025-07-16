@@ -51,6 +51,8 @@ class ChildrenExport implements FromCollection, WithHeadings, WithStyles, WithCo
             floor($child->age_in_months) . ' bulan',
             $latestMeasurement ? floor($latestMeasurement->height) . ' cm' : 'Belum diukur',
             $latestMeasurement && $latestMeasurement->weight ? number_format((float)$latestMeasurement->weight, 1) . ' kg' : 'Belum diukur',
+            $latestMeasurement && $latestMeasurement->head_circumference ? number_format((float)$latestMeasurement->head_circumference, 1) . ' cm' : 'Belum diukur',
+            $latestMeasurement && $latestMeasurement->arm_circumference ? number_format((float)$latestMeasurement->arm_circumference, 1) . ' cm' : 'Belum diukur',
             $latestMeasurement ? $latestMeasurement->status : 'Belum diukur',
             $child->measurements->count() . ' kali',
             $child->created_at->format('d/m/Y'),
@@ -67,6 +69,8 @@ class ChildrenExport implements FromCollection, WithHeadings, WithStyles, WithCo
             'Usia',
             'Tinggi Terakhir',
             'Berat Terakhir',
+            'Lingkar Kepala',
+            'Lingkar Lengan Atas',
             'Status Terakhir',
             'Total Pengukuran',
             'Terdaftar Pada',
@@ -150,9 +154,11 @@ class ChildrenExport implements FromCollection, WithHeadings, WithStyles, WithCo
             "H2:H{$rowCount}" => ['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER]],
             "I2:I{$rowCount}" => ['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER]],
             "J2:J{$rowCount}" => ['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER]],
+            "K2:K{$rowCount}" => ['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER]],
+            "L2:L{$rowCount}" => ['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER]],
 
             // Alternating row colors for better readability
-            "A2:J" . ($rowCount % 2 == 0 ? $rowCount : $rowCount - 1) => [
+            "A2:L" . ($rowCount % 2 == 0 ? $rowCount : $rowCount - 1) => [
                 'fill' => [
                     'fillType' => Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F8FAFC'],
@@ -171,9 +177,11 @@ class ChildrenExport implements FromCollection, WithHeadings, WithStyles, WithCo
             'E' => 12,  // Usia
             'F' => 15,  // Tinggi Terakhir
             'G' => 15,  // Berat Terakhir
-            'H' => 18,  // Status Terakhir
-            'I' => 15,  // Total Pengukuran
-            'J' => 15,  // Terdaftar Pada
+            'H' => 15,  // Lingkar Kepala
+            'I' => 15,  // Lingkar Lengan Atas
+            'J' => 18,  // Status Terakhir
+            'K' => 15,  // Total Pengukuran
+            'L' => 15,  // Terdaftar Pada
         ];
     }
 

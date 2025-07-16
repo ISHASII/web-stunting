@@ -42,6 +42,8 @@ class MeasurementExport implements FromCollection, WithHeadings, WithMapping, Wi
             'Usia (Bulan)',
             'Tinggi Badan (cm)',
             'Berat Badan (kg)',
+            'Lingkar Kepala (cm)',
+            'Lingkar Lengan Atas (cm)',
             'Z-Score',
             'Status Stunting',
             'Petugas'
@@ -63,6 +65,8 @@ class MeasurementExport implements FromCollection, WithHeadings, WithMapping, Wi
                 $measurement->age_months,
                 $measurement->height,
                 $measurement->weight ?? '-',
+                $measurement->head_circumference ?? '-',
+                $measurement->arm_circumference ?? '-',
                 number_format($measurement->z_score, 2),
                 $measurement->status,
                 $measurement->user->name ?? 'N/A'
@@ -109,7 +113,7 @@ class MeasurementExport implements FromCollection, WithHeadings, WithMapping, Wi
                 ],
             ],
             // Style all cells
-            'A:L' => [
+            'A:N' => [
                 'borders' => [
                     'allBorders' => [
                         'borderStyle' => Border::BORDER_THIN,
@@ -135,9 +139,11 @@ class MeasurementExport implements FromCollection, WithHeadings, WithMapping, Wi
             'G' => 12,  // Usia
             'H' => 15,  // Tinggi Badan
             'I' => 15,  // Berat Badan
-            'J' => 12,  // Z-Score
-            'K' => 18,  // Status
-            'L' => 20,  // Petugas
+            'J' => 15,  // Lingkar Kepala
+            'K' => 15,  // Lingkar Lengan Atas
+            'L' => 12,  // Z-Score
+            'M' => 18,  // Status
+            'N' => 20,  // Petugas
         ];
     }
 

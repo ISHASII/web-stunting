@@ -220,6 +220,14 @@
                                         <p class="font-medium">{{ $measurement->weight ? number_format($measurement->weight, 1) . ' kg' : '-' }}</p>
                                     </div>
                                     <div>
+                                        <span class="text-gray-500">Lingkar Kepala:</span>
+                                        <p class="font-medium">{{ $measurement->head_circumference ? number_format($measurement->head_circumference, 1) . ' cm' : '-' }}</p>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Lingkar Lengan:</span>
+                                        <p class="font-medium">{{ $measurement->arm_circumference ? number_format($measurement->arm_circumference, 1) . ' cm' : '-' }}</p>
+                                    </div>
+                                    <div>
                                         <span class="text-gray-500">Z-Score:</span>
                                         <p class="font-medium">{{ number_format($measurement->z_score, 2) }}</p>
                                     </div>
@@ -253,6 +261,12 @@
                                     Berat (kg)
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-semibold text-blue-900 uppercase tracking-wider">
+                                    Lingkar Kepala (cm)
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-blue-900 uppercase tracking-wider">
+                                    Lingkar Lengan (cm)
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-blue-900 uppercase tracking-wider">
                                     Z-Score
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-semibold text-blue-900 uppercase tracking-wider">
@@ -282,6 +296,12 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
                                     {{ $measurement->weight ? number_format($measurement->weight, 1) : '-' }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                                    {{ $measurement->head_circumference ? number_format($measurement->head_circumference, 1) : '-' }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                                    {{ $measurement->arm_circumference ? number_format($measurement->arm_circumference, 1) : '-' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-mono">
                                     {{ number_format($measurement->z_score, 2) }}

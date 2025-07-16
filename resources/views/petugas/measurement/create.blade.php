@@ -54,13 +54,13 @@
                             <div class="group">
                                 <label for="nik" class="flex items-center space-x-2 text-sm font-semibold text-gray-800 mb-3">
                                     <span>NIK Anak</span>
-                                    <span class="text-red-500">*</span>
+                                    <span class="text-gray-500 text-xs">(Opsional)</span>
                                 </label>
                                 <div class="relative">
-                                    <input type="text" id="nik" name="nik" required maxlength="16"
+                                    <input type="text" id="nik" name="nik" maxlength="16"
                                            class="w-full pl-4 pr-12 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-800 placeholder-gray-400"
                                            value="{{ old('nik') }}"
-                                           placeholder="Masukkan NIK 16 digit"
+                                           placeholder="Masukkan NIK 16 digit (opsional)"
                                            oninput="this.value = this.value.replace(/\D/g, '')">
                                     <div class="absolute inset-y-0 right-0 flex items-center pr-4">
                                         <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,6 +221,59 @@
                             @enderror
                         </div>
 
+                        <!-- Additional Measurements Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Head Circumference Field -->
+                            <div class="group">
+                                <label for="head_circumference" class="flex items-center space-x-2 text-sm font-semibold text-gray-800 mb-3">
+                                    <span>Lingkar Kepala (cm)</span>
+                                    <span class="text-gray-500 text-xs">(Opsional)</span>
+                                </label>
+                                <div class="relative">
+                                    <input type="number" id="head_circumference" name="head_circumference" step="0.1" min="25" max="70"
+                                           class="w-full pl-4 pr-12 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-800 placeholder-gray-400"
+                                           value="{{ old('head_circumference') }}"
+                                           placeholder="Contoh: 45.5">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                                        <span class="text-gray-500 text-sm font-medium">cm</span>
+                                    </div>
+                                </div>
+                                @error('head_circumference')
+                                    <div class="flex items-center space-x-2 mt-2">
+                                        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <p class="text-red-600 text-sm font-medium">{{ $message }}</p>
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Arm Circumference Field -->
+                            <div class="group">
+                                <label for="arm_circumference" class="flex items-center space-x-2 text-sm font-semibold text-gray-800 mb-3">
+                                    <span>Lingkar Lengan Atas (cm)</span>
+                                    <span class="text-gray-500 text-xs">(Opsional)</span>
+                                </label>
+                                <div class="relative">
+                                    <input type="number" id="arm_circumference" name="arm_circumference" step="0.1" min="5" max="30"
+                                           class="w-full pl-4 pr-12 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-800 placeholder-gray-400"
+                                           value="{{ old('arm_circumference') }}"
+                                           placeholder="Contoh: 12.5">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                                        <span class="text-gray-500 text-sm font-medium">cm</span>
+                                    </div>
+                                </div>
+                                @error('arm_circumference')
+                                    <div class="flex items-center space-x-2 mt-2">
+                                        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <p class="text-red-600 text-sm font-medium">{{ $message }}</p>
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <!-- Photo Upload Section -->
                         <div class="group">
                             <label class="flex items-center space-x-2 text-sm font-semibold text-gray-800 mb-3">
@@ -373,9 +426,17 @@
                         <span class="text-gray-600">Tinggi Badan:</span>
                         <span class="font-semibold text-gray-800" id="confirmHeight">-</span>
                     </div>
-                    <div class="flex justify-between items-center py-2">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
                         <span class="text-gray-600">Berat Badan:</span>
                         <span class="font-semibold text-gray-800" id="confirmWeight">-</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span class="text-gray-600">Lingkar Kepala:</span>
+                        <span class="font-semibold text-gray-800" id="confirmHeadCircumference">-</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="text-gray-600">Lingkar Lengan Atas:</span>
+                        <span class="font-semibold text-gray-800" id="confirmArmCircumference">-</span>
                     </div>
                 </div>
 
@@ -533,16 +594,13 @@ function validateForm() {
     const genderValue = document.getElementById('gender').value;
     const birthDateValue = document.getElementById('birth_date').value;
     const heightValue = document.getElementById('height').value;
+    const weightValue = document.getElementById('weight').value;
+    const headCircumferenceValue = document.getElementById('head_circumference').value;
+    const armCircumferenceValue = document.getElementById('arm_circumference').value;
 
-    // Check required fields
-    if (!nikValue) {
-        alert('NIK harus diisi!');
-        document.getElementById('nik').focus();
-        return false;
-    }
-
-    if (nikValue.length !== 16) {
-        alert('NIK harus 16 digit!');
+    // Check NIK if provided
+    if (nikValue && nikValue.length !== 16) {
+        alert('NIK harus 16 digit jika diisi!');
         document.getElementById('nik').focus();
         return false;
     }
@@ -577,7 +635,6 @@ function validateForm() {
         return false;
     }
 
-    const weightValue = document.getElementById('weight').value;
     if (!weightValue) {
         alert('Berat badan harus diisi!');
         document.getElementById('weight').focus();
@@ -588,6 +645,24 @@ function validateForm() {
         alert('Berat badan harus antara 1-50 kg!');
         document.getElementById('weight').focus();
         return false;
+    }
+
+    // Validate head circumference if provided
+    if (headCircumferenceValue) {
+        if (headCircumferenceValue < 25 || headCircumferenceValue > 70) {
+            alert('Lingkar kepala harus antara 25-70 cm!');
+            document.getElementById('head_circumference').focus();
+            return false;
+        }
+    }
+
+    // Validate arm circumference if provided
+    if (armCircumferenceValue) {
+        if (armCircumferenceValue < 5 || armCircumferenceValue > 30) {
+            alert('Lingkar lengan atas harus antara 5-30 cm!');
+            document.getElementById('arm_circumference').focus();
+            return false;
+        }
     }
 
     return true;
@@ -672,14 +747,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const birthDateValue = document.getElementById('birth_date').value;
         const heightValue = document.getElementById('height').value;
         const weightValue = document.getElementById('weight').value;
+        const headCircumferenceValue = document.getElementById('head_circumference').value;
+        const armCircumferenceValue = document.getElementById('arm_circumference').value;
 
         // Update modal content
-        document.getElementById('confirmNik').textContent = nikValue;
+        document.getElementById('confirmNik').textContent = nikValue || 'Tidak diisi';
         document.getElementById('confirmName').textContent = nameValue;
         document.getElementById('confirmGender').textContent = genderValue === 'L' ? 'Laki-laki' : 'Perempuan';
         document.getElementById('confirmBirthDate').textContent = new Date(birthDateValue).toLocaleDateString('id-ID');
         document.getElementById('confirmHeight').textContent = heightValue + ' cm';
         document.getElementById('confirmWeight').textContent = weightValue + ' kg';
+        document.getElementById('confirmHeadCircumference').textContent = headCircumferenceValue ? headCircumferenceValue + ' cm' : 'Tidak diisi';
+        document.getElementById('confirmArmCircumference').textContent = armCircumferenceValue ? armCircumferenceValue + ' cm' : 'Tidak diisi';
 
         showConfirmModal();
     });

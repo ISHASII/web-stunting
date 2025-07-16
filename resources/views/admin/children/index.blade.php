@@ -427,6 +427,13 @@
                                             <div class="text-gray-500">
                                                 @if($child->latest_measurement && $child->latest_measurement->height)
                                                     Tinggi: {{ floor($child->latest_measurement->height) }} cm
+                                                    <br>Berat: {{ floor($child->latest_measurement->weight) }} kg
+                                                    @if($child->latest_measurement->head_circumference)
+                                                        <br>LK: {{ floor($child->latest_measurement->head_circumference) }} cm
+                                                    @endif
+                                                    @if($child->latest_measurement->arm_circumference)
+                                                        <br>LLA: {{ floor($child->latest_measurement->arm_circumference) }} cm
+                                                    @endif
                                                 @else
                                                     {{ \Carbon\Carbon::parse($child->birth_date)->format('d M Y') }}
                                                 @endif

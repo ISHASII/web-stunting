@@ -89,6 +89,22 @@ class SingleChildExport implements FromCollection, WithHeadings, WithTitle, With
             ],
             [
                 'Kategori' => '',
+                'Keterangan' => 'Lingkar Kepala Terakhir',
+                'Nilai' => $latestMeasurement && $latestMeasurement->head_circumference ? number_format((float)$latestMeasurement->head_circumference, 1) . ' cm' : 'Belum diukur',
+                'Tanggal' => '',
+                'Status' => '',
+                'Z-Score' => ''
+            ],
+            [
+                'Kategori' => '',
+                'Keterangan' => 'Lingkar Lengan Atas Terakhir',
+                'Nilai' => $latestMeasurement && $latestMeasurement->arm_circumference ? number_format((float)$latestMeasurement->arm_circumference, 1) . ' cm' : 'Belum diukur',
+                'Tanggal' => '',
+                'Status' => '',
+                'Z-Score' => ''
+            ],
+            [
+                'Kategori' => '',
                 'Keterangan' => 'Status Gizi Terakhir',
                 'Nilai' => $latestMeasurement ? $latestMeasurement->status : 'Belum ada data',
                 'Tanggal' => '',
@@ -118,7 +134,7 @@ class SingleChildExport implements FromCollection, WithHeadings, WithTitle, With
             $data->push([
                 'Kategori' => 'RIWAYAT PENGUKURAN',
                 'Keterangan' => 'Umur (Bulan)',
-                'Nilai' => 'Tinggi (cm) / Berat (kg)',
+                'Nilai' => 'Tinggi (cm) / Berat (kg) / LK (cm) / LLA (cm)',
                 'Tanggal' => 'Tanggal Pengukuran',
                 'Status' => 'Status Gizi',
                 'Z-Score' => 'Z-Score'
@@ -128,7 +144,9 @@ class SingleChildExport implements FromCollection, WithHeadings, WithTitle, With
             foreach ($measurements as $measurement) {
                 $heightValue = floor((float)$measurement->height) . ' cm';
                 $weightValue = $measurement->weight ? number_format((float)$measurement->weight, 1) . ' kg' : '-';
-                $combinedValue = $heightValue . ' / ' . $weightValue;
+                $headCircumferenceValue = $measurement->head_circumference ? number_format((float)$measurement->head_circumference, 1) . ' cm' : '-';
+                $armCircumferenceValue = $measurement->arm_circumference ? number_format((float)$measurement->arm_circumference, 1) . ' cm' : '-';
+                $combinedValue = $heightValue . ' / ' . $weightValue . ' / ' . $headCircumferenceValue . ' / ' . $armCircumferenceValue;
 
                 $data->push([
                     'Kategori' => '',

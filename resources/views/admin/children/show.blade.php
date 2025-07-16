@@ -205,6 +205,24 @@
                         <div class="text-xs sm:text-sm text-green-600 font-semibold">Berat Badan</div>
                     </div>
 
+                    @if($child->latest_measurement->head_circumference)
+                    <div class="bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 text-center hover:shadow-lg transition-shadow">
+                        <div class="text-lg sm:text-2xl lg:text-3xl font-bold text-indigo-700 mb-1 sm:mb-2">
+                            {{ number_format($child->latest_measurement->head_circumference, 1) }} cm
+                        </div>
+                        <div class="text-xs sm:text-sm text-indigo-600 font-semibold">Lingkar Kepala</div>
+                    </div>
+                    @endif
+
+                    @if($child->latest_measurement->arm_circumference)
+                    <div class="bg-gradient-to-r from-pink-50 to-pink-100 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 text-center hover:shadow-lg transition-shadow">
+                        <div class="text-lg sm:text-2xl lg:text-3xl font-bold text-pink-700 mb-1 sm:mb-2">
+                            {{ number_format($child->latest_measurement->arm_circumference, 1) }} cm
+                        </div>
+                        <div class="text-xs sm:text-sm text-pink-600 font-semibold">Lingkar Lengan Atas</div>
+                    </div>
+                    @endif
+
                     <div class="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 text-center hover:shadow-lg transition-shadow">
                         <div class="text-lg sm:text-2xl lg:text-3xl font-bold text-orange-700 mb-1 sm:mb-2">
                             {{ number_format($child->latest_measurement->z_score, 2) }}
@@ -308,6 +326,18 @@
                                 <span class="text-gray-500">Berat:</span>
                                 <span class="font-semibold text-gray-900 ml-1">{{ $measurement->weight ? number_format($measurement->weight, 1) : '-' }} kg</span>
                             </div>
+                            @if($measurement->head_circumference)
+                            <div>
+                                <span class="text-gray-500">Lingkar Kepala:</span>
+                                <span class="font-semibold text-gray-900 ml-1">{{ number_format($measurement->head_circumference, 1) }} cm</span>
+                            </div>
+                            @endif
+                            @if($measurement->arm_circumference)
+                            <div>
+                                <span class="text-gray-500">Lingkar Lengan Atas:</span>
+                                <span class="font-semibold text-gray-900 ml-1">{{ number_format($measurement->arm_circumference, 1) }} cm</span>
+                            </div>
+                            @endif
                             <div>
                                 <span class="text-gray-500">Z-Score:</span>
                                 <span class="font-semibold text-gray-900 ml-1">{{ number_format($measurement->z_score, 2) }}</span>

@@ -50,22 +50,27 @@ class PetugasController extends Controller
         // Enhanced validation with better error messages
         try {
             $validated = $request->validate([
-                'nik' => 'required|string|digits:16',
+                'nik' => 'nullable|string|digits:16',
                 'name' => 'required|string|max:255',
                 'gender' => 'required|in:L,P',
                 'birth_date' => 'required|date|before:today',
                 'height' => 'required|numeric|min:30|max:150',
                 'weight' => 'required|numeric|min:1|max:50',
+                'head_circumference' => 'nullable|numeric|min:25|max:70',
+                'arm_circumference' => 'nullable|numeric|min:5|max:30',
                 'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ], [
                 'nik.digits' => 'NIK harus terdiri dari tepat 16 digit angka.',
-                'nik.required' => 'NIK wajib diisi.',
                 'birth_date.before' => 'Tanggal lahir harus sebelum hari ini.',
                 'height.min' => 'Tinggi badan minimal 30 cm.',
                 'height.max' => 'Tinggi badan maksimal 150 cm.',
                 'weight.required' => 'Berat badan wajib diisi.',
                 'weight.min' => 'Berat badan minimal 1 kg.',
                 'weight.max' => 'Berat badan maksimal 50 kg.',
+                'head_circumference.min' => 'Lingkar kepala minimal 25 cm.',
+                'head_circumference.max' => 'Lingkar kepala maksimal 70 cm.',
+                'arm_circumference.min' => 'Lingkar lengan atas minimal 5 cm.',
+                'arm_circumference.max' => 'Lingkar lengan atas maksimal 30 cm.',
             ]);
 
             Log::info('Validasi berhasil:', $validated);
@@ -126,7 +131,11 @@ class PetugasController extends Controller
             }
 
             // Check if child already exists
-            $existingChild = Child::where('nik', $request->nik)->first();
+            $existingChild = null;
+            if ($request->nik) {
+                $existingChild = Child::where('nik', $request->nik)->first();
+            }
+            
             Log::info('Cek anak existing:', [
                 'nik' => $request->nik,
                 'existing_found' => $existingChild ? true : false,
@@ -134,15 +143,21 @@ class PetugasController extends Controller
             ]);
 
             // Create or update child record
-            $child = Child::updateOrCreate(
-                ['nik' => $request->nik],
-                [
-                    'name' => $request->name,
-                    'gender' => $gender,
-                    'birth_date' => $request->birth_date,
-                    'photo' => $photoPath ?? ($existingChild?->photo),
-                ]
-            );
+            $childData = [
+                'name' => $request->name,
+                'gender' => $gender,
+                'birth_date' => $request->birth_date,
+                'photo' => $photoPath ?? ($existingChild?->photo),
+            ];
+
+            if ($request->nik) {
+                $child = Child::updateOrCreate(
+                    ['nik' => $request->nik],
+                    $childData
+                );
+            } else {
+                $child = Child::create($childData);
+            }
 
             Log::info('Child record saved:', [
                 'child_id' => $child->id,
@@ -198,6 +213,8 @@ class PetugasController extends Controller
                 'age_months' => $ageMonths,
                 'height' => $height,
                 'weight' => $weight,
+                'head_circumference' => $request->head_circumference,
+                'arm_circumference' => $request->arm_circumference,
                 'z_score' => $zScore,
                 'status' => $status,
                 'measurement_date' => now(),

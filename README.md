@@ -1,66 +1,291 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Deteksi Stunting
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <img src="public/stunting.jpg" width="400" alt="Sistem Deteksi Stunting">
 </p>
 
-## About Laravel
+<p align="center">
+    <a href="https://github.com/ISHASII/web-stunting"><img src="https://img.shields.io/badge/version-1.0.0-blue.svg" alt="Version"></a>
+    <a href="#"><img src="https://img.shields.io/badge/Laravel-11.x-red.svg" alt="Laravel Version"></a>
+    <a href="#"><img src="https://img.shields.io/badge/PHP-8.2+-blue.svg" alt="PHP Version"></a>
+    <a href="#"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tentang Proyek
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Sistem Deteksi Stunting adalah aplikasi web yang dirancang untuk membantu tenaga kesehatan dalam mendeteksi dini stunting pada anak-anak. Sistem ini menggunakan standar WHO untuk menghitung Z-Score dan memberikan analisis status gizi secara real-time.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Fitur Utama
 
-## Learning Laravel
+-   **Manajemen Data Anak**: Pencatatan lengkap data anak termasuk informasi personal dan foto
+-   **Pengukuran Komprehensif**: Monitoring tinggi badan, berat badan, lingkar kepala, dan lingkar lengan atas
+-   **Analisis Z-Score**: Perhitungan otomatis berdasarkan standar WHO
+-   **Deteksi Stunting**: Klasifikasi status gizi (Normal, Stunting, Severely Stunting)
+-   **Dashboard Admin**: Panel kontrol untuk superadmin dan petugas kesehatan
+-   **Laporan & Export**: Ekspor data individual dan laporan komprehensif
+-   **Galeri Kegiatan**: Dokumentasi program pencegahan stunting
+-   **Responsive Design**: Antarmuka yang modern dan responsif
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Teknologi yang Digunakan
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   **Framework**: Laravel 11.x
+-   **Database**: SQLite (default), MySQL compatible
+-   **Frontend**: Blade Templates, Tailwind CSS
+-   **Authentication**: Laravel Sanctum
+-   **File Storage**: Laravel Storage (Public disk)
+-   **Export**: Laravel Excel (PhpSpreadsheet)
+-   **Charts**: Chart.js
+-   **Icons**: Heroicons
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Persyaratan Sistem
 
-## Laravel Sponsors
+-   PHP >= 8.2
+-   Composer
+-   Node.js & NPM
+-   SQLite atau MySQL
+-   Git
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Instalasi
 
-### Premium Partners
+### 1. Clone Repository
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+git clone https://github.com/ISHASII/web-stunting.git
+cd web-stunting
+```
 
-## Contributing
+### 2. Install Dependencies
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+# Install PHP dependencies
+composer install
 
-## Code of Conduct
+# Install Node.js dependencies
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Konfigurasi Environment
 
-## Security Vulnerabilities
+```bash
+# Copy file environment
+cp .env.example .env
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Generate application key
+php artisan key:generate
+```
 
-## License
+### 4. Konfigurasi Database
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Edit file `.env` dan sesuaikan konfigurasi database:
+
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+
+# Atau jika menggunakan MySQL:
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=deteksi_stunting
+# DB_USERNAME=root
+# DB_PASSWORD=
+```
+
+### 5. Migrasi Database
+
+```bash
+# Jalankan migrasi
+php artisan migrate
+
+# Jalankan seeder (opsional)
+php artisan db:seed
+```
+
+### 6. Setup Storage
+
+```bash
+# Buat symbolic link untuk storage
+php artisan storage:link
+```
+
+### 7. Build Assets
+
+```bash
+# Compile assets untuk development
+npm run dev
+
+# Atau untuk production
+npm run build
+```
+
+### 8. Jalankan Aplikasi
+
+```bash
+# Jalankan development server
+php artisan serve
+```
+
+Akses aplikasi di: `http://localhost:8000`
+
+## Library & Package yang Digunakan
+
+### PHP Dependencies (Composer)
+
+```json
+{
+    "maatwebsite/excel": "^3.1",
+    "intervention/image": "^2.7",
+    "barryvdh/laravel-dompdf": "^2.0"
+}
+```
+
+### JavaScript Dependencies (NPM)
+
+```json
+{
+    "tailwindcss": "^3.3.0",
+    "chart.js": "^4.0.0",
+    "alpinejs": "^3.13.0"
+}
+```
+
+### Instalasi Manual Library
+
+```bash
+# Install Laravel Excel untuk export
+composer require maatwebsite/excel
+
+# Install Intervention Image untuk manipulasi gambar
+composer require intervention/image
+
+# Install DomPDF untuk generate PDF
+composer require barryvdh/laravel-dompdf
+
+# Install Tailwind CSS
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+# Install Chart.js
+npm install chart.js
+
+# Install Alpine.js
+npm install alpinejs
+```
+
+## Struktur Database
+
+### Tabel Utama
+
+-   **users**: Data pengguna (admin, petugas)
+-   **puskesmas**: Data Puskesmas
+-   **children**: Data anak
+-   **measurements**: Data pengukuran
+-   **galleries**: Galeri kegiatan
+-   **who_standards**: Standar WHO untuk Z-Score
+
+### Relasi
+
+-   User belongsTo Puskesmas
+-   Child belongsTo Puskesmas
+-   Measurement belongsTo Child
+-   Gallery tidak memiliki relasi khusus
+
+### 1. Login
+
+-   Akses halaman login di `/login`
+-   Masuk menggunakan akun admin atau petugas
+
+### 2. Dashboard
+
+-   Super Admin: Akses ke semua fitur
+-   Petugas: Akses terbatas sesuai Puskesmas
+
+### 3. Manajemen Data Anak
+
+-   Tambah data anak baru
+-   Upload foto anak
+-   Input data pengukuran (tinggi, berat, lingkar kepala, lingkar lengan)
+
+### 4. Analisis Hasil
+
+-   Sistem otomatis menghitung Z-Score
+-   Klasifikasi status gizi
+-   Rekomendasi tindak lanjut
+
+### 5. Laporan
+
+-   Export data individual
+-   Export laporan komprehensif
+-   Download dalam format Excel
+
+## Konfigurasi Tambahan
+
+### Email Configuration (Opsional)
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-app-password
+MAIL_ENCRYPTION=tls
+```
+
+### File Upload Configuration
+
+```env
+FILESYSTEM_DISK=public
+```
+
+## Troubleshooting
+
+### Permission Issues
+
+```bash
+# Set permission untuk storage dan cache
+chmod -R 775 storage
+chmod -R 775 bootstrap/cache
+```
+
+### Clear Cache
+
+```bash
+# Clear semua cache
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+```
+
+### Storage Link Issues
+
+```bash
+# Hapus link lama dan buat ulang
+rm public/storage
+php artisan storage:link
+```
+
+## Lisensi
+
+Proyek ini dilisensikan under MIT License - lihat file [LICENSE](LICENSE) untuk detail.
+
+## Kontak
+
+-   **Developer**: Ilham Saputra (ISHASII)
+-   **GitHub**: [@ISHASII](https://github.com/ISHASII)
+-   **Repository**: [https://github.com/ISHASII/web-stunting](https://github.com/ISHASII/web-stunting)
+-   **Issues**: [https://github.com/ISHASII/web-stunting/issues](https://github.com/ISHASII/web-stunting/issues)
+
+## Acknowledgments
+
+-   [Laravel Framework](https://laravel.com)
+-   [Tailwind CSS](https://tailwindcss.com)
+-   [WHO Child Growth Standards](https://www.who.int/tools/child-growth-standards)
+-   [Heroicons](https://heroicons.com)
+-   [Chart.js](https://www.chartjs.org)
+
+---
+
+**Dikembangkan oleh Ilham Saputra ([@ISHASII](https://github.com/ISHASII))**
+
+**Catatan**: Sistem ini dikembangkan untuk keperluan edukasi dan penelitian. Untuk penggunaan medis yang sesungguhnya, konsultasikan dengan tenaga kesehatan profesional.

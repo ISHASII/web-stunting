@@ -44,9 +44,21 @@
                 <div class="group bg-white border border-blue-100 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
                     <!-- Image Container -->
                     <div class="relative overflow-hidden">
-                        <img src="{{ Storage::url($gallery->image) }}" alt="{{ $gallery->title }}"
-                             class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                        <a href="{{ route('admin.gallery.show', $gallery) }}" class="block">
+                            <img src="{{ Storage::url($gallery->image) }}" alt="{{ $gallery->title }}"
+                                 class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+
+                            <!-- View Icon Overlay -->
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                                <div class="bg-white bg-opacity-90 p-3 rounded-full shadow-lg">
+                                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
 
                         <!-- Date Badge -->
                         <div class="absolute top-3 right-3 bg-blue-600 text-white px-2 py-1 rounded-lg text-xs font-medium">
@@ -56,11 +68,17 @@
 
                     <!-- Content -->
                     <div class="p-5">
-                        <h4 class="text-lg font-bold text-blue-900 mb-2 line-clamp-2">{{ $gallery->title }}</h4>
+                        <a href="{{ route('admin.gallery.show', $gallery) }}" class="block hover:text-blue-700 transition duration-300">
+                            <h4 class="text-lg font-bold text-blue-900 mb-2 line-clamp-2">{{ $gallery->title }}</h4>
+                        </a>
                         <p class="text-blue-600 text-sm mb-4 line-clamp-3">{{ Str::limit($gallery->description, 100) }}</p>
 
                         <!-- Action Buttons -->
                         <div class="flex gap-2">
+                            <a href="{{ route('admin.gallery.show', $gallery) }}"
+                               class="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition duration-300 text-center">
+                                Lihat
+                            </a>
                             <a href="{{ route('admin.gallery.edit', $gallery) }}"
                                class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition duration-300 text-center">
                                 Edit

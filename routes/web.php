@@ -11,6 +11,8 @@ use App\Http\Controllers\GalleryController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/galeri', [GalleryController::class, 'publicIndex'])->name('gallery.public');
+Route::get('/galeri/{gallery}', [GalleryController::class, 'publicShow'])->name('gallery.public.show');
 Route::get('/check-form', [StuntingController::class, 'showForm'])->name('stunting.form');
 Route::post('/check-stunting', [StuntingController::class, 'check'])->name('stunting.check');
 Route::get('/result/{child}', [StuntingController::class, 'result'])->name('stunting.result');

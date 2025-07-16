@@ -219,12 +219,28 @@
         <div id="galleryContent" class="hidden transition-all duration-500 ease-in-out transform opacity-0 translate-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($galleries as $gallery)
-                <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:-translate-y-2">
+                <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:-translate-y-2 cursor-pointer"
+                     onclick="window.location.href='{{ route('gallery.public.show', $gallery) }}'">
                     <div class="relative overflow-hidden">
                         <img src="{{ Storage::url($gallery->image) }}"
                             alt="{{ $gallery->title }}"
                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                        <!-- Overlay Content -->
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                                    {{ $gallery->created_at->format('d M Y') }}
+                                </span>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-sm">Lihat Detail</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="p-8">
                         <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">

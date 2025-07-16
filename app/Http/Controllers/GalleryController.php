@@ -82,4 +82,16 @@ class GalleryController extends Controller
 
         return redirect()->route('admin.gallery.index')->with('success', 'Galeri berhasil dihapus');
     }
+
+    // Public Gallery Methods
+    public function publicIndex()
+    {
+        $galleries = Gallery::latest()->paginate(9);
+        return view('gallery.index', compact('galleries'));
+    }
+
+    public function publicShow(Gallery $gallery)
+    {
+        return view('gallery.show', compact('gallery'));
+    }
 }

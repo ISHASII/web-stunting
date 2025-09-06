@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('measurements', function (Blueprint $table) {
-            $table->decimal('weight', 5, 2)->after('height')->comment('Berat badan dalam kg');
-        });
+        if (!Schema::hasColumn('measurements', 'weight')) {
+            Schema::table('measurements', function (Blueprint $table) {
+                $table->decimal('weight', 5, 2)->after('height')->comment('Berat badan dalam kg');
+            });
+        }
     }
 
     /**
@@ -21,8 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('measurements', function (Blueprint $table) {
-            $table->dropColumn('weight');
-        });
+        if (Schema::hasColumn('measurements', 'weight')) {
+            Schema::table('measurements', function (Blueprint $table) {
+                $table->dropColumn('weight');
+            });
+        }
     }
 };

@@ -11,10 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('measurements', function (Blueprint $table) {
-            $table->decimal('head_circumference', 5, 2)->nullable()->after('weight')->comment('Lingkar kepala dalam cm');
-            $table->decimal('arm_circumference', 5, 2)->nullable()->after('head_circumference')->comment('Lingkar lengan atas dalam cm');
-        });
+        if (!Schema::hasColumn('measurements', 'head_circumference')) {
+            Schema::table('measurements', function (Blueprint $table) {
+                $table->decimal('head_circumference', 5, 2)->nullable()->after('weight')->comment('Lingkar kepala dalam cm');
+            });
+        }
+
+        if (!Schema::hasColumn('measurements', 'arm_circumference')) {
+            Schema::table('measurements', function (Blueprint $table) {
+                $table->decimal('arm_circumference', 5, 2)->nullable()->after('head_circumference')->comment('Lingkar lengan atas dalam cm');
+            });
+        }
     }
 
     /**
@@ -22,8 +29,16 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('measurements', function (Blueprint $table) {
-            $table->dropColumn(['head_circumference', 'arm_circumference']);
-        });
+        if (Schema::hasColumn('measurements', 'head_circumference')) {
+            Schema::table('measurements', function (Blueprint $table) {
+                $table->dropColumn('head_circumference');
+            });
+        }
+
+        if (Schema::hasColumn('measurements', 'arm_circumference')) {
+            Schema::table('measurements', function (Blueprint $table) {
+                $table->dropColumn('arm_circumference');
+            });
+        }
     }
 };

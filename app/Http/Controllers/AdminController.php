@@ -30,17 +30,21 @@ class AdminController extends Controller
             ->take(5)
             ->get();
 
-        $monthlyStats = Measurement::selectRaw('
-                MONTH(measurement_date) as month,
-                COUNT(*) as total,
-                SUM(CASE WHEN status = "Normal" THEN 1 ELSE 0 END) as normal,
-                SUM(CASE WHEN status = "Pendek" THEN 1 ELSE 0 END) as pendek,
-                SUM(CASE WHEN status = "Sangat Pendek" THEN 1 ELSE 0 END) as sangat_pendek
-            ')
-            ->whereYear('measurement_date', date('Y'))
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
+    // Use a DB-driver-specific month extractor because SQLite doesn't support MONTH()
+    $driver = DB::getPdo()->getAttribute(\PDO::ATTR_DRIVER_NAME);
+    $monthExpr = $driver === 'sqlite' ? "strftime('%m', measurement_date)" : 'MONTH(measurement_date)';
+
+    $monthlyStats = Measurement::selectRaw("
+        {$monthExpr} as month,
+        COUNT(*) as total,
+        SUM(CASE WHEN status = 'Normal' THEN 1 ELSE 0 END) as normal,
+        SUM(CASE WHEN status = 'Pendek' THEN 1 ELSE 0 END) as pendek,
+        SUM(CASE WHEN status = 'Sangat Pendek' THEN 1 ELSE 0 END) as sangat_pendek
+        ")
+        ->whereYear('measurement_date', date('Y'))
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get();
 
         return view('admin.dashboard', compact(
             'totalChildren',
@@ -454,7 +458,7 @@ class AdminController extends Controller
         }
         $filename .= '-' . date('Y-m-d');
 
-        if ($request->format === 'pdf') {
+        if ($request->get('format') === 'pdf') {
             $pdf = Pdf::loadView('admin.exports.children_pdf', compact('children', 'request'));
             return $pdf->download("{$filename}.pdf");
         }
@@ -508,7 +512,7 @@ class AdminController extends Controller
 
         $filename = 'data-pengukuran-' . date('Y-m-d');
 
-        if ($request->format === 'pdf') {
+        if ($request->get('format') === 'pdf') {
             $pdf = Pdf::loadView('admin.exports.measurements_pdf', compact('measurements', 'request'));
             return $pdf->download("{$filename}.pdf");
         }

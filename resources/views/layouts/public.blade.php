@@ -31,7 +31,7 @@
     <header class="bg-blue-600 text-white">
         <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-4 md:py-6">
             <a href="{{ route('home') }}" class="flex items-center gap-2">
-                <span class="text-lg font-bold">NutriSetra</span>
+                <span class="text-lg font-bold">Contoh</span>
             </a>
 
             <nav class="hidden md:flex gap-6 items-center">
@@ -99,7 +99,7 @@
     <footer class="bg-gray-800 text-white">
         <div class="max-w-7xl mx-auto py-12 px-4 grid md:grid-cols-4 gap-8">
             <div class="md:col-span-2">
-                <h3 class="font-semibold text-lg mb-2">Posyandu Wargasetra</h3>
+                <h3 class="font-semibold text-lg mb-2">Posyandu</h3>
                 <p class="text-gray-300">Melayani masyarakat dengan sepenuh hati, khususnya dalam deteksi dini stunting pada anak.</p>
             </div>
             <div>
